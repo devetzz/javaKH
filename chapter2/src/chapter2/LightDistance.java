@@ -21,7 +21,7 @@ public class LightDistance {
 			System.out.print("일 수 입력 : ");
 			day = Integer.parseInt(sc.nextLine());
 			distance = LIGHT_SPEED * (double)day * 24 * 60 * 60;
-			System.out.printf("빛이 %d일 동안 이동한 거리는 %fKm 입니다.\n", day, distance);
+			System.out.printf("빛이 %d일 동안 이동한 거리는 %.2fKm 입니다.\n", day, distance);
 			
 			do{
 				char yn = 0;
