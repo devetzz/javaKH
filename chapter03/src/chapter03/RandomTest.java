@@ -6,8 +6,21 @@ public class RandomTest {
 		// 랜덤 테스트
 		int v = 10;
 		int k = ++v%5;
+		
+		// 100~200
+		System.out.println((int)(Math.random()*(200-100+1)+100));
+		
+		System.out.println("=====Lotto=====");
+		for (int i = 0; i < 6; i++) {
+			System.out.println((int)(Math.random()*(45-1+1)+1));
+			
+		}
+		System.out.println("===============");
+		
 		System.out.println((int)Math.random());
-
+		
+		
+		
 		System.out.println(v);
 		System.out.println(k);
 		
