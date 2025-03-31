@@ -84,8 +84,7 @@ public class ExamStudentArrayList {
 			case 3: 
 				// 3. 학생 계산
 				for (int i = 0; i < nameArr.size();i++) {
-					
-					// 왜 에러가 나는 걸까 Index 0 out of bounds for length 0
+					// 왜 에러가 나는 걸까 Index 0 out of bounds for length 0 > 없는 인덱스를 찾으려고 하면 발생
 					totalArr.add(korArr.get(i)+engArr.get(i));
 					avrArr.add((double) totalArr.get(i)/2.0);
 					
