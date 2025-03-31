@@ -83,6 +83,7 @@ public class ExamPattrenGrade {
 				System.out.println("정상적인 값을 입력하시오!!");
 			}while(true);
 			if(yn == 'n' || yn == 'N') {
+				scan.close();
 				break;
 			}
 			
