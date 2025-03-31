@@ -2,6 +2,7 @@ package chapter03;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class ExamStudentArrayList {
 	public static final int COUNT = 1;
@@ -25,21 +26,78 @@ public class ExamStudentArrayList {
 			
 			int num = 0;
 			num = Integer.parseInt(scan.nextLine());
+			boolean isNumCheck = Pattern.matches("^[1-5]{1,1}$", String.valueOf(num));
+
+			if(isNumCheck == false) {
+				System.out.println("1~5번 중에 선택하세요!!");
+				continue;
+			}
 			
 			switch(num) {
 			case 1: 
 				// 1. 학생 입력
 				while(true) {
-					System.out.print("학생 이름 입력 : ");
-					nameArr.add(scan.nextLine());
-					System.out.print("학생 나이 입력 : ");
-					ageArr.add(Integer.parseInt(scan.nextLine()));
-					System.out.print("학생 성별 입력 : ");
-					genderArr.add(scan.nextLine().charAt(0));
-					System.out.print("국어 성적 입력 : ");
-					korArr.add(Integer.parseInt(scan.nextLine()));
-					System.out.print("영어 성적 입력 : ");
-					engArr.add(Integer.parseInt(scan.nextLine()));
+					
+					do {
+						String name = "";
+						System.out.print("학생 이름 입력 : ");
+						name = scan.nextLine();			
+						boolean isNameCheck = Pattern.matches("^[a-z|A-Z|가-힣]{2,20}$", String.valueOf(name));
+						if (isNameCheck == true) {
+							nameArr.add(name);
+							break;
+						}
+						System.out.println("문자를 입력하세요!!");
+					}while(true);
+					
+					do {
+						int age = 0;
+						System.out.print("학생 나이 입력 : ");
+						age = Integer.parseInt(scan.nextLine());			
+						boolean isAgeCheck = Pattern.matches("^[0-9]{1,3}$", String.valueOf(age));
+						if (isAgeCheck == true) {
+							ageArr.add(age);
+							break;
+						}
+						System.out.println("숫자를 입력하세요!!");
+					}while(true);
+					
+					do {
+						char gender = 0;
+						System.out.print("학생 성별 입력 : ");
+						gender = scan.nextLine().charAt(0);			
+						boolean isGenderCheck = Pattern.matches("^[a-z|A-Z|가-힣]{1,1}$", String.valueOf(gender));
+						if (isGenderCheck == true) {
+							genderArr.add(gender);
+							break;
+						}
+						System.out.println("성별을 입력하세요!!");
+					}while(true);
+					
+					do {
+						int kor = 0;
+						System.out.print("국어 성적 입력 : ");
+						kor = Integer.parseInt(scan.nextLine());			
+						boolean isKorCheck = Pattern.matches("^[0-9]{1,3}$", String.valueOf(kor));
+						if (isKorCheck == true && kor <= 100) {
+							korArr.add(kor);
+							break;
+						}
+						System.out.println("국어 성적을 입력하세요!!");
+					}while(true);
+					
+					do {
+						int eng = 0;
+						System.out.print("영어 성적 입력 : ");
+						eng = Integer.parseInt(scan.nextLine());			
+						boolean isEngCheck = Pattern.matches("^[0-9]{1,3}$", String.valueOf(eng));
+						if (isEngCheck == true && eng <= 100) {
+							engArr.add(eng);
+							break;
+						}
+						System.out.println("영어 성적을 입력하세요!!");
+					}while(true);
+					
 					
 					char yn = 0;
 					
@@ -108,6 +166,7 @@ public class ExamStudentArrayList {
 						gradeArr.add(i, "F");
 					}
 				}
+				System.out.println("계산 완료!");
 				break;
 			case 4: 
 				// 4. 학생 검색
