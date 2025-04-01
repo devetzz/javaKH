@@ -5,7 +5,6 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class ExamStudentArrayList {
-	public static final int COUNT = 1;
 
 	public static void main(String[] args) {
 		
@@ -228,16 +227,7 @@ public class ExamStudentArrayList {
 				break;
 			}
 			
-			
-			
-			
-			
-			
-			
-			
 		}
-		
-		
 		
 
 	}

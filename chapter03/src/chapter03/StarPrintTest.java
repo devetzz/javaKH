@@ -5,32 +5,24 @@ public class StarPrintTest {
 	public static void main(String[] args) {
 		// 별표 찍기 공식(x, y 좌표를 생각할 것)
 		// 변곡점이 있을때 if를 쓴다
-		for (int y = 0; y < 13; y++) {
+		// 모래시계 변형
+		for (int y = 0; y < 12; y++) {
 			if(y < 6) {
-				for (int x = 0; x < y + 1; x++) {
-					System.out.print("*");
+				for (int s = 0; s < y; s++) {
+					System.out.print(' ');
 				}
-				for (int s = 0; s < 11 - 2 * y; s++) {
-					System.out.print(" ");
-				}
-				for (int x = 0; x < y + 1; x++) {
-					System.out.print("*");
-				}
-			}else if (y == 6) {
-				for(int x=0;x<13;x++) {
+				for (int x = 0; x < (-2 * y) + 11; x++) {
 					System.out.print("*");
 				}
 			}else {
-				for (int x = 0; x < 13 - y; x++) {
-					System.out.print("*");
+				for (int s = 0; s < 11 - y; s++) {
+					System.out.print(' ');
 				}
-				for (int s = 0; s < 2 * y - 13; s++) {
-					System.out.print(" ");
-				}
-				for (int x = 0; x < 13 - y; x++) {
+				for (int x = 0; x < 2 * y - 11; x++) {
 					System.out.print("*");
 				}
 			}
+			
 			System.out.println();
 		}
 	}
@@ -138,6 +130,38 @@ public class StarPrintTest {
 				}
 			}
 			
+			System.out.println();
+		}
+	}
+	
+	public static void starPrint8Step() {
+		// 나비
+		for (int y = 0; y < 13; y++) {
+			if(y < 6) {
+				for (int x = 0; x < y + 1; x++) {
+					System.out.print("*");
+				}
+				for (int s = 0; s < 11 - 2 * y; s++) {
+					System.out.print(" ");
+				}
+				for (int x = 0; x < y + 1; x++) {
+					System.out.print("*");
+				}
+			}else if (y == 6) {
+				for(int x=0;x<13;x++) {
+					System.out.print("*");
+				}
+			}else {
+				for (int x = 0; x < 13 - y; x++) {
+					System.out.print("*");
+				}
+				for (int s = 0; s < 2 * y - 13; s++) {
+					System.out.print(" ");
+				}
+				for (int x = 0; x < 13 - y; x++) {
+					System.out.print("*");
+				}
+			}
 			System.out.println();
 		}
 	}
