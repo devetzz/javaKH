@@ -1,63 +1,59 @@
 package chapter04;
 
-import java.util.ArrayList;
-
 public class Store {
 	// 멤버 변수
 	// 물품명, 재고, 물품 원가, 부가세, 부가세 포함 가격
 	private final int TAX = 10;
-	private ArrayList<String> nameArr = new ArrayList<String>();
-	private ArrayList<Integer> stockArr = new ArrayList<Integer>();
-	private ArrayList<Integer> priceArr = new ArrayList<Integer>();
-	private ArrayList<Integer> vatArr = new ArrayList<Integer>();
-	private ArrayList<Double> totalArr = new ArrayList<Double>();
+	private String name;
+	private int stock;
+	private int price;
+	private int vat;
+	private double total;
 	
 	// 멤버 함수
-	public ArrayList<String> getNameArr() {
-		return nameArr;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameArr(String nameArr) {
-		this.nameArr.add(nameArr);
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public ArrayList<Integer> getStockArr() {
-		return stockArr;
+	public int getStock() {
+		return stock;
 	}
 
-	public void setStockArr(int stockArr) {
-		this.stockArr.add(stockArr);
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
-	public ArrayList<Integer> getPriceArr() {
-		return priceArr;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setPriceArr(int priceArr) {
-		this.priceArr.add(priceArr);
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getVat() {
+		return vat;
+	}
+
+	public void calculateVat() {
+		this.vat = price / TAX;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void calculateTotal() {
+		this.total = price + vat;
 	}
 	
-	public ArrayList<Integer> getVatArr() {
-		return vatArr;
-	}
-	
-	public void setVatArr(int vatArr) {
-		this.vatArr.add(vatArr);
-	}
-
-	public ArrayList<Double> getTotalArr() {
-		return totalArr;
-	}
-
-	public void setTotalArr(double totalArr) {
-		this.totalArr.add(totalArr);
-	}
-
-	
-
 	@Override
 	public String toString() {
-		return "상품명 : " + nameArr + "재고 : " + stockArr + "\t| 상품 가격 : " + priceArr + "\t| 부가세 포함 가격 : " + totalArr;
+		return "상품 이름 : " + name + "\t| 재고 : " + stock + "\t| 상품 가격 : " + price + "\t| 부가세 : " + vat + "\t| 부가세 포함 가격 : " + total + "\n";
 	}
 	
 }
