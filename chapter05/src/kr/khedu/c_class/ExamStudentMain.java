@@ -20,16 +20,67 @@ public class ExamStudentMain {
 			case 1:
 				// 입력
 				for(int i = 0; i < stuArr.length; i++) {
-					System.out.print("학생 이름 입력 : ");
-					String name = scan.nextLine();
-					System.out.print("학생 나이 입력 : ");
-					int age = Integer.parseInt(scan.nextLine());
-					System.out.print("학생 성별 입력 : ");
-					char gender = scan.nextLine().charAt(0);
-					System.out.print("학생 국어 입력 : ");
-					int kor = Integer.parseInt(scan.nextLine());
-					System.out.print("학생 영어 입력 : ");
-					int eng = Integer.parseInt(scan.nextLine());
+					String name;
+					int age;
+					char gender;
+					int kor;
+					int eng;
+					
+					do {
+						System.out.print("학생 이름 입력 : ");
+						name = scan.nextLine();
+						boolean isNameCheck = Pattern.matches("^[a-zA-Z|가-힣]{2,20}$", name);
+						if (isNameCheck == true) {
+							break;
+						}
+						System.out.println("정확한 이름을 입력하세요!");
+					}while(true);
+					
+					do {
+						System.out.print("학생 나이 입력 : ");
+						String input = scan.nextLine();
+						boolean isAgeCheck = Pattern.matches("^[0-9]{1,3}$", input);
+						age = Integer.parseInt(input);
+						if(isAgeCheck == true) {
+							break;
+						}
+						System.out.println("정확한 나이를 입력하세요!");
+					}while(true);
+					
+					do {
+						System.out.print("학생 성별 입력 : ");
+						String input = scan.nextLine();
+						
+						boolean isGenderCheck = Pattern.matches("^[m,f,M,F,남,여]{1}$", input);
+						if(isGenderCheck == true) {
+							gender = input.charAt(0);
+							break;
+						}
+						System.out.println("정확한 성별을 입력하세요!");
+					}while(true);
+					
+					do {
+						System.out.print("학생 국어 입력 : ");
+						String input = scan.nextLine();
+						boolean isKorCheck = Pattern.matches("^[0-9]{1,3}$", input);
+						kor = Integer.parseInt(input);
+						if(isKorCheck == true && kor <= 100) {
+							break;
+						}
+						System.out.println("정확한 국어 점수를 입력하세요!");
+					}while(true);
+					
+					do {
+						System.out.print("학생 영어 입력 : ");
+						String input = scan.nextLine();
+						boolean isEngCheck = Pattern.matches("^[0-9]{1,3}$", input);
+						eng = Integer.parseInt(input);
+						if(isEngCheck == true && eng <= 100) {
+							break;
+						}
+						System.out.println("정확한 영어 점수를 입력하세요!");
+					}while(true);
+					
 					
 					stuArr[i] = new Student(name, age, gender, kor, eng);
 				}
@@ -79,6 +130,7 @@ public class ExamStudentMain {
 				String searchName = null;
 				System.out.print("검색할 학생명 입력 : ");
 				searchName = scan.nextLine();
+				
 				boolean searchFlag = false;
 				for(int i = 0; i < stuArr.length; i++) {
 					if(stuArr[i].getName().equals(searchName) == true) {

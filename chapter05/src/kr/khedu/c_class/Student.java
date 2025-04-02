@@ -79,8 +79,8 @@ public class Student {
 	// 출력 함수(멤버변수 출력하는 기능)
 	@Override
 	public String toString() {
-		return "Student [name=" + name + ", age=" + age + ", gender=" + gender + ", kor=" + kor + ", eng=" + eng
-				+ ", total=" + total + ", avg=" + avg + ", grade=" + grade + "]";
+		return "Student [이름 : " + name + ", 나이 : " + age + ", 성별 : " + gender + ", 국어 : " + kor + ", 영어 : " + eng
+				+ ", 총합 : " + total + ", 평균 : " + avg + ", 등급 : " + grade + "]";
 	}
 	
 }
