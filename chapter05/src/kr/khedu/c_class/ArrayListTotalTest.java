@@ -1,14 +1,19 @@
-package self;
+package kr.khedu.c_class;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class ArrayTotalTest {
+public class ArrayListTotalTest {
 	public static Scanner scan = new Scanner(System.in); 
+	public static final int COUNT = 10;
 	public static void main(String[] args) {
 		// 변수 선언
 		boolean stopFlag = false;
-		int a[] = new int[10];
+		//int a[] = new int[10];
+		ArrayList<Integer> aList = new ArrayList<Integer>();
 		
 		while(!stopFlag) {
 			
@@ -23,53 +28,61 @@ public class ArrayTotalTest {
 			case 1: 
 				// 1. 랜덤 배열 입력
 				// 정수형 랜덤값 공식 : (int)(Math.random()*(큰값-작은값+1)+작은값)
-				for(int i = 0; i < a.length; i++) {
-					a[i] = (int)(Math.random()*(999-100+1)+100);
+				for(int i = 0; i < COUNT; i++) {
+					Integer num = (int)(Math.random()*(999-100+1)+100);
+					aList.add(num);
 				}
 				System.out.println("랜덤 배열이 생성되었습니다.");
 				break;
 			case 2: 
 				// 2. 배열 출력
 				System.out.print("생성된 배열 : ");
-				for(int i = 0; i < a.length; i++) {
-					System.out.printf("%6d", a[i]);
-				}
-				System.out.println();
+				System.out.println(aList.toString());
 				break;
 			case 3: 
 				// 3. 최대값 출력
-				int max = getMaxValue(a); 
+				//int max = getMaxValue(a);
+				int max = Collections.max(aList);
 				System.out.printf("최대값 : %d\n", max);
 				break;
 			case 4: 
 				// 4. 최소값 출력
-				int min = getMinValue(a);
+				//int min = getMinValue(a);
+				int min = Collections.min(aList);
 				System.out.printf("최소값 : %d\n", min);
 				break;
 			case 5: 
 				// 5. 내림차순 정렬
-				descendingFunc(a);
+				//descendingFunc(a);
+				aList.sort(Comparator.reverseOrder());
 				System.out.println("내림차순 정렬되었습니다.");
 				break;
 			case 6: 
 				// 6. 오름차순 정렬
-				ascendingFunc(a);
+				//ascendingFunc(a);
+				aList.sort(Comparator.naturalOrder());
 				System.out.println("오름차순 정렬되었습니다.");
 				break;
 			case 7: 
 				// 7. 배열 검색
 				System.out.print("검색할 번호 : ");
 				int search = Integer.parseInt(scan.nextLine());
-				boolean isSearch = false;
-				for(int i = 0; i < a.length; i++) {
-					if (a[i] == search) {
-						isSearch = true;
-						System.out.printf("%d 숫자가 존재합니다.\n", search);
-					}
+				boolean isSearch = aList.contains(search);
+				if (isSearch == true) {
+					System.out.printf("%d 숫자가 존재합니다.\n", search);
+				}else {
+					System.out.printf("검색된 번호가 없습니다.\n");
 				}
-				if(isSearch == false) {
-					System.out.println("검색된 번호가 없습니다.");
-				}
+//				boolean isSearch = false;
+//				for(int i = 0; i < a.length; i++) {
+//					if (a[i] == search) {
+//						isSearch = true;
+//						System.out.printf("%d 숫자가 존재합니다.\n", search);
+//					}
+//				}
+//				if(isSearch == false) {
+//					System.out.println("검색된 번호가 없습니다.");
+//				}
 				break;
 			case 8: 
 				// 8. 종료
@@ -83,7 +96,7 @@ public class ArrayTotalTest {
 			
 		}
 	}
-	
+	/*
 	private static void ascendingFunc(int[] a) {
 		// 오름차순 정령
 		int imsi = 0;
@@ -132,7 +145,7 @@ public class ArrayTotalTest {
 			}
 		}
 		return max;
-	}
+	}*/
 
 	public static int selectMenu() {
 		// 메뉴 입력
