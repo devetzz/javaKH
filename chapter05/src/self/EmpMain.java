@@ -27,15 +27,18 @@ public class EmpMain {
 				char grade;
 				
 				System.out.println("★★★ 1. 임직원 입력 ★★★");
-				do {
-					System.out.print("이름 : ");
-					name = scan.nextLine();
-					boolean isNameCheck = Pattern.matches("^[a-zA-Z|가-힣]{2,20}$", name);
-					if(isNameCheck == true) {
-						break;
-					}
-					System.out.println("이름을 정확히 입력하세요!");
-				}while(true);
+//				do {
+//					System.out.print("이름 : ");
+//					name = scan.nextLine();
+//					boolean isNameCheck = Pattern.matches("^[a-zA-Z|가-힣]{2,20}$", name);
+//					if(isNameCheck == true) {
+//						break;
+//					}
+//					System.out.println("이름을 정확히 입력하세요!");
+//					
+//				}while(true);
+				name = PatternInspection(scan, "이름 : ", "^[a-zA-Z|가-힣]{2,20}$");
+				
 				
 				do {
 					System.out.print("부서 : ");
@@ -173,6 +176,16 @@ public class EmpMain {
 		}while(true);
 		
 		return num;
+	}
+	
+	public static String PatternInspection(Scanner s, String request, String regex) {
+		System.out.print(request);
+		String input = s.nextLine();
+		if(Pattern.matches(regex, input)) {
+			return input; // 유효한 입력값 리턴
+		}
+		System.out.println("유효한 값을 입력해주세요.");
+		return PatternInspection(s, request, regex);
 	}
 	
 }
