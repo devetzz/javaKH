@@ -1,6 +1,8 @@
 package kr.co.khedu;
 
-public class StudentData {
+import java.io.Serializable;
+
+public class StudentData implements Serializable{
 	// 멤버 변수
 		private String name;
 		private int kor;
