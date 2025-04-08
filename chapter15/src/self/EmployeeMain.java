@@ -105,13 +105,16 @@ public class EmployeeMain {
 				System.out.print("삭제할 임직원명 : ");
 				String deleteName = scan.nextLine();
 				boolean isDeleted = false;
+				Employee deleteEmp = null;
 				for(Employee data : empList) {
 					if(data.getName().equals(deleteName)) {
 						System.out.printf("%s 삭제 완료.\n",deleteName);
-						empList.remove(data);
+						deleteEmp = data; 
+						//empList.remove(data);
 						isDeleted = true;
 					}
 				}
+				empList.remove(deleteEmp);
 				if(isDeleted == false) {
 					System.out.printf("%s 임직원은 존재하지 않습니다.\n", deleteName);
 				}
@@ -223,6 +226,7 @@ public class EmployeeMain {
 			// 첫라인 버리기 => 컬럼명 저장
 			if(scan.hasNextLine()) {
 				EmployeeMain.fieldName = scan.nextLine();
+				System.out.println(fieldName);
 			}
 			while(true) {
 				if(!scan.hasNextLine()) {
