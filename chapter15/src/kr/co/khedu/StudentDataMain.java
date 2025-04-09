@@ -141,6 +141,7 @@ public class StudentDataMain {
 						System.out.printf("%s 삭제가 완료되었습니다.\n", stu.toString());
 						stuList.remove(stu);
 						removeFlag = true;
+						break;
 					}
 				}
 				if(removeFlag == false) {

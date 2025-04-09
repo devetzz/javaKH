@@ -110,7 +110,7 @@ public class EmployeeMain {
 					if(data.getName().equals(deleteName)) {
 						System.out.printf("%s 삭제 완료.\n",deleteName);
 						deleteEmp = data; 
-						//empList.remove(data);
+						//empList.remove(data);		//for문 안에서 data를 지우면 List의 사이즈가 줄어서 에러가 발생한다.
 						isDeleted = true;
 					}
 				}
