@@ -15,8 +15,9 @@ public class ElectricCar extends Car {
 	}
 	
 	public void PrintFunc() {
+		System.out.printf("자식영역에서 부모 speed = %d\n",speed);
 		System.out.printf("자식영역에서 부모 speed = %d\n",this.getSpeed());
-		System.out.printf("자식영역에서 battery = %d\n",this.getBattery());
+		Car.aaa();
 	}
 
 	// 멤버 함수

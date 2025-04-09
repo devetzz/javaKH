@@ -3,7 +3,7 @@ package khedu.c_class;
 // 부모
 public class Car extends Object {
 	// 멤버 변수
-	private int speed;
+	public int speed;
 	
 	// 생성자
 	public Car() {
@@ -23,5 +23,9 @@ public class Car extends Object {
 	
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+	
+	public static void aaa() {
+		
 	}
 }
