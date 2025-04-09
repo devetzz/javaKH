@@ -76,9 +76,6 @@ public class EmployeeMain {
 					// 해당 페이지의 시작위치, 끝위치를 구한다.
 					int first = 10 * (page - 1);
 					int last = first + 10;
-					if(page == -1) {
-						break;
-					}
 					// 마지막 페이지에 나머지가 있을때 끝위치를 정한다.
 					if(remainValue != 0 && page == totalPage) {
 						last = first + remainValue;
@@ -91,6 +88,9 @@ public class EmployeeMain {
 					System.out.print("Page 입력 (Exit : -1) > ");
 					page = Integer.parseInt(scan.nextLine());
 					
+					if(page == -1) {
+						break;
+					}
 				}
 				break;
 			case "최대값":
