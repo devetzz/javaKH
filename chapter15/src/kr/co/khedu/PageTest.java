@@ -43,7 +43,7 @@ public class PageTest extends Object{
 					noIsNoString = false;
 				}
 				boolean isNumcheck = Pattern.matches("^[1-3]{1}$", String.valueOf(input));	// 입력된 정수에 대해 패턴 검색 진행
-				if (isNumcheck == true || noIsNoString == true) {
+				if (isNumcheck == true && noIsNoString == true) {
 					no = input;
 					break;
 				}
