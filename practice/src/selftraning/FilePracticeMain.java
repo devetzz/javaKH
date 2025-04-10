@@ -138,7 +138,7 @@ public class FilePracticeMain {
 				if(!s.hasNextLine()) {
 					break;
 				}
-				// 1라인씩 가져와기
+				// 1라인씩 가져오기
 				String data = s.nextLine();
 				// 가져온 1라인 split을 통해 쪼개서 tokens[]에 저장(형변환 동시 진행)
 				String[] tokens = data.split(",");

@@ -1,6 +1,6 @@
 package ch15homework;
 
-public class Employee {
+public class Employee implements Comparable {
 	// 멤버 변수 (이름, 부서, 급여, 등급, 보너스포인트, 총급여)
 	private String name;
 	private String dept;
@@ -64,6 +64,21 @@ public class Employee {
 	public String toString() {
 		return "Employee [" + name + " " + dept + " " + salary + " " 
 							+ grade + " " + bonus + " " + total + "]";
+	}
+	@Override
+	public int compareTo(Object o) {
+		// 부모 영역에 자식이 있는지 확인
+		Employee emp = null;
+		if(o instanceof Employee) {
+			emp = (Employee)o;
+		}
+		if(this.getTotal() > emp.getTotal()) {
+			return 1;
+		}else if (this.getTotal() < emp.getTotal()) {
+			return -1;
+		}else {
+			return 0;
+		}
 	}
 	
 	

@@ -5,20 +5,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class StudentDataMain {
 	
-	public static String[] menu = new String[] {"", "로드", "추가입력", "출력", "최대값", "최소값", "검색", "저장", "삭제", "수정", "종료"};
+//	public static String[] menu = new String[] {"", "로드", "추가입력", "출력", "최대값", "최소값", "검색", "저장", "삭제", "수정", "종료"};
 	public static String menuTitle;
-	public static ArrayList<StudentData> stuList = new ArrayList<StudentData>();
-	static {
-		// exams 파일을 프로그램 실행(main 작동)하기 전에 로드하여 stuList에 세팅한다.
-		examsFileUpload();
-	}
+//	public static ArrayList<StudentData> stuList = new ArrayList<StudentData>();
+//	static {
+//		// exams 파일을 프로그램 실행(main 작동)하기 전에 로드하여 stuList에 세팅한다.
+//		examsFileUpload();
+//	}
 	
 	public static void main(String[] args) throws IOException {
+		ArrayList<StudentData> stuList = new ArrayList<StudentData>();
+		examsFileUpload(stuList);
 		// 변수선언
 		boolean stopFlag = false;
 		
@@ -26,15 +29,15 @@ public class StudentDataMain {
 		// 반복(입력, 연산, 출력)
 		while(!stopFlag) {
 			// 메뉴 보여주기
-			menuDisplay();
+			Menu.menuDisplay();
 			// 메뉴 선택하기
 			int no = selectNo();
 			
-			switch(menu[no]) {
-			case "로드":
+			switch(no) {
+			case Menu.LOAD:
 				System.out.println("이미 로드가 완료되었습니다.");
 				break;
-			case "추가입력":
+			case Menu.INPUT:
 			{
 				// 키보드 입력 => StudentData 객체 =>  ArrayList => 파일
 				System.out.println("★★★ 학생 추가 ★★★");
@@ -57,13 +60,13 @@ public class StudentDataMain {
 				
 			}
 				break;
-			case "출력":
+			case Menu.OUTPUT:
 				for(StudentData data : stuList) {
 					System.out.println(data.toString());
 				}
 				
 				break;
-			case "최대값":
+			case Menu.MAX:
 			{
 				int max = Integer.MIN_VALUE;
 				int index = -1;
@@ -78,7 +81,7 @@ public class StudentDataMain {
 				System.out.printf("최대값을 가진 학생의 정보 : \n%s \r", stuList.get(index));
 			}
 				break;
-			case "최소값":
+			case Menu.MIN:
 			{
 				int min = Integer.MAX_VALUE;
 				int index = -1;
@@ -93,7 +96,7 @@ public class StudentDataMain {
 				System.out.printf("최소값을 가진 학생의 정보 : \n%s \r", stuList.get(index));
 			}
 				break;
-			case "검색":
+			case Menu.SEARCH:
 			{
 				Scanner scan = new Scanner(System.in);
 				System.out.print("검색할 이름 입력 : ");
@@ -110,7 +113,7 @@ public class StudentDataMain {
 				}
 			}
 				break;
-			case "저장":
+			case Menu.SAVE:
 			{
 				// 파일에서 가져온다. 보조스트림 정의 (PrintStream)
 				FileOutputStream fo = new FileOutputStream("res/exams.txt");
@@ -130,7 +133,7 @@ public class StudentDataMain {
 				
 			}
 				break;
-			case "삭제":
+			case Menu.REMOVE:
 			{
 				Scanner scan = new Scanner(System.in);
 				System.out.print("삭제할 이름 : ");
@@ -149,41 +152,21 @@ public class StudentDataMain {
 				}
 			}	
 				break;
-			case "수정":
-			{
-				Scanner scan = new Scanner(System.in);
-				System.out.print("수정할 학생 이름 : ");
-				String name = scan.nextLine();
-				StudentData findStudentData = null;
-				for(StudentData stu : stuList) {
-					if(stu.getName().equals(name)) {
-						findStudentData = stu;
-						break;
-					}
-				}
-				if(findStudentData == null) {
-					System.out.printf("%s 학생을 찾지 못했습니다.\n", name);
-					break;
-				}
-				System.out.printf("%s 학생의 정보는 %s\n", name, findStudentData.toString());
-				System.out.printf("현재 국어 점수: %d => 수정할 점수 > ", findStudentData.getKor());
-				int kor = Integer.parseInt(scan.nextLine());
-				System.out.printf("현재 영어 점수: %d => 수정할 점수 > ", findStudentData.getEng());
-				int eng = Integer.parseInt(scan.nextLine());
-				System.out.printf("현재 수학 점수: %d => 수정할 점수 > ", findStudentData.getMath());
-				int math = Integer.parseInt(scan.nextLine());
-				
-				findStudentData.setKor(kor);
-				findStudentData.setEng(eng);
-				findStudentData.setMath(math);
-				int total = kor + eng + math;
-				findStudentData.setTotal(total);
-				findStudentData.setAvg(total / 3.0);
-				System.out.printf("%s 학생의 점수 수정이 완료되었습니다.\n", name);
-				
-			}	
+			case Menu.UPDATE:
+				// 학생 점수 수정 함수
+				studentDataUpdate(stuList);
 				break;
-			case "종료":
+			case Menu.ASC:
+				// 오름차순 정렬
+				Collections.sort(stuList);
+				System.out.println("오름차순 정렬 완료.");
+				break;
+			case Menu.DESC:
+				// 내림차순 정렬
+				Collections.sort(stuList, Collections.reverseOrder());
+				System.out.println("내림차순 정렬 완료.");
+				break;
+			case Menu.EXIT:
 				stopFlag = true;
 				System.out.println("종료합니다.");
 				break;
@@ -199,7 +182,41 @@ public class StudentDataMain {
 	
 	
 	
-	private static void examsFileUpload() {
+	public static void studentDataUpdate(ArrayList<StudentData> stuList) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("수정할 학생 이름 : ");
+		String name = scan.nextLine();
+		StudentData findStudentData = null;
+		for(StudentData stu : stuList) {
+			if(stu.getName().equals(name)) {
+				findStudentData = stu;
+				break;
+			}
+		}
+		if(findStudentData == null) {
+			System.out.printf("%s 학생을 찾지 못했습니다.\n", name);
+			return;
+		}
+		System.out.printf("%s 학생의 정보는 %s\n", name, findStudentData.toString());
+		System.out.printf("현재 국어 점수: %d => 수정할 점수 > ", findStudentData.getKor());
+		int kor = Integer.parseInt(scan.nextLine());
+		System.out.printf("현재 영어 점수: %d => 수정할 점수 > ", findStudentData.getEng());
+		int eng = Integer.parseInt(scan.nextLine());
+		System.out.printf("현재 수학 점수: %d => 수정할 점수 > ", findStudentData.getMath());
+		int math = Integer.parseInt(scan.nextLine());
+		
+		findStudentData.setKor(kor);
+		findStudentData.setEng(eng);
+		findStudentData.setMath(math);
+		int total = kor + eng + math;
+		findStudentData.setTotal(total);
+		findStudentData.setAvg(total / 3.0);
+		System.out.printf("%s 학생의 점수 수정이 완료되었습니다.\n", name);
+	}
+
+
+
+	private static void examsFileUpload(ArrayList<StudentData> stuList) {
 		// 파일에서 가져온다. 보조스트림 정의 (Scanner)
 		FileInputStream fi;
 		try {
@@ -225,7 +242,7 @@ public class StudentDataMain {
 				StudentData stu = new StudentData(name, kor, eng, math);
 				stu.setTotal(total);
 				stu.setAvg(avg);
-				StudentDataMain.stuList.add(stu);
+				stuList.add(stu);
 			}
 			System.out.println("파일에서 ArrayList로 로드가 완료되었습니다.");
 			scan.close();
@@ -263,7 +280,7 @@ public class StudentDataMain {
 		do {
 			int input = 0;
 			Scanner scan = new Scanner(System.in);
-			System.out.print("메뉴 선택(1~10) > ");
+			System.out.print("메뉴 선택(1~12) > ");
 			boolean noIsNoString = true;
 			input = Integer.parseInt(scan.nextLine());
 //			try {
@@ -276,27 +293,13 @@ public class StudentDataMain {
 				no = input;
 				break;
 			}
-			System.out.println("1~10번 중의 번호를 선택하세요!");
+			System.out.println("1~12번 중의 번호를 선택하세요!");
 		}while(true);
 
 		return no;
 		
 	}
 	
-	public static void menuDisplay() {
-		System.out.println("★★★★★★★★ MENU ★★★★★★★★");
-		System.out.println("★ \t1. 로드\t\t ★");
-		System.out.println("★ \t2. 추가입력\t ★");
-		System.out.println("★ \t3. 출력\t\t ★");
-		System.out.println("★ \t4. 최대값\t\t ★");
-		System.out.println("★ \t5. 최소값\t\t ★");
-		System.out.println("★ \t6. 검색\t\t ★");
-		System.out.println("★ \t7. 저장\t\t ★");
-		System.out.println("★ \t8. 삭제\t\t ★");
-		System.out.println("★ \t9. 수정\t\t ★");
-		System.out.println("★ \t10. 종료\t\t ★");
-		System.out.println("★★★★★★★★★★★★★★★★★★★★★");
-	}
 	
 	// 번호 선택, 점수 입력, 이름 입력(패턴 검색)
 	

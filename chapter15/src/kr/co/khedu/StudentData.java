@@ -2,7 +2,7 @@ package kr.co.khedu;
 
 import java.io.Serializable;
 
-public class StudentData implements Serializable{
+public class StudentData implements Serializable, Comparable{
 	// 멤버 변수
 		private String name;
 		private int kor;
@@ -81,5 +81,23 @@ public class StudentData implements Serializable{
 			String avgFormat = String.format("%.2f", this.avg);
 			return "Student [" + name + " " + kor + " " + eng + " " + math + " " + total
 					+ " " + avgFormat + "]";
+		}
+
+		@Override
+		public int compareTo(Object object) {
+			// Object(부모 영역)에 StudentData(자식)가 있는지 점검한다.
+			StudentData stu = null;
+			if(object instanceof StudentData) {
+				stu = (StudentData)object;
+			}
+			// 비교
+			if(this.getTotal() > stu.getTotal()) {
+				return 1;
+			}else if(this.getTotal() < stu.getTotal()) {
+				return -1;
+			}else {
+				return 0;
+			}
+			
 		}
 }
