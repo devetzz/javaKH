@@ -69,35 +69,9 @@ public class EmployeeMain {
 				break;
 			case MenuInterface.OUTPUT:
 				System.out.println("★★★ 임직원 출력 ★★★");
-
-				int page = 1;
-				while(true) {
-					clear();
-					// 전체페이지를 구한다.
-					int totalPage = empList.size() / 10;
-					int remainValue = empList.size() % 10;
-					if(remainValue != 0) {
-						totalPage += 1;
-					}
-					// 해당 페이지의 시작위치, 끝위치를 구한다.
-					int first = 10 * (page - 1);
-					int last = first + 10;
-					// 마지막 페이지에 나머지가 있을때 끝위치를 정한다.
-					if(remainValue != 0 && page == totalPage) {
-						last = first + remainValue;
-					}
-					// for문을 통해 페이지별 출력
-					System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
-					for(int i = first; i < last; i++) {
-						System.out.println(empList.get(i));
-					}
-					System.out.print("Page 입력 (Exit : -1) > ");
-					page = Integer.parseInt(scan.nextLine());
-					
-					if(page == -1) {
-						break;
-					}
-				}
+				
+				empPrint(empList);
+				
 				break;
 			case MenuInterface.MAX:
 				double max = Integer.MIN_VALUE;
@@ -230,15 +204,17 @@ public class EmployeeMain {
 				// 오름차순 정렬
 				Collections.sort(empList);
 				System.out.println("오름차순 정렬 완료.");
-				System.out.print(" >> ");
-				scan.nextLine();
+				empPrint(empList);
+//				System.out.print(" >> ");
+//				scan.nextLine();
 				break;
 			case MenuInterface.DESC:
 				// 내림차순 정렬
 				Collections.sort(empList, Collections.reverseOrder());
 				System.out.println("내림차순 정렬 완료.");
-				System.out.print(" >> ");
-				scan.nextLine();
+				empPrint(empList);
+//				System.out.print(" >> ");
+//				scan.nextLine();
 				break;
 			case MenuInterface.EXIT:
 				System.out.println("종료합니다.");
@@ -251,6 +227,41 @@ public class EmployeeMain {
 			}
 		}
 	}
+
+
+
+	public static void empPrint(ArrayList<Employee> empList) {
+		int page = 1;
+		while(true) {
+			clear();
+			System.out.println("임직원 리스트");
+			// 전체페이지를 구한다.
+			int totalPage = empList.size() / 10;
+			int remainValue = empList.size() % 10;
+			if(remainValue != 0) {
+				totalPage += 1;
+			}
+			// 해당 페이지의 시작위치, 끝위치를 구한다.
+			int first = 10 * (page - 1);
+			int last = first + 10;
+			// 마지막 페이지에 나머지가 있을때 끝위치를 정한다.
+			if(remainValue != 0 && page == totalPage) {
+				last = first + remainValue;
+			}
+			// for문을 통해 페이지별 출력
+			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+			for(int i = first; i < last; i++) {
+				System.out.println(empList.get(i));
+			}
+			System.out.print("Page 입력 (Exit : -1) > ");
+			page = Integer.parseInt(scan.nextLine());
+			
+			if(page == -1) {
+				break;
+			}
+		}
+	
+}
 
 
 

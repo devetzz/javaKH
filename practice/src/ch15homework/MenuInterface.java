@@ -18,18 +18,18 @@ public interface MenuInterface {
 	public static void menuPrint() {
 		// 메뉴
 		System.out.println("★★★★★★★★ MENU ★★★★★★★★");
-		System.out.println("★ \t1. 임직원 가져오기\t ★");
-		System.out.println("★ \t2. 임직원 추가입력\t ★");
-		System.out.println("★ \t3. 임직원 출력\t ★");
-		System.out.println("★ \t4. 급여 최대값\t ★");
-		System.out.println("★ \t5. 급여 최소값\t ★");
-		System.out.println("★ \t6. 임직원 검색\t ★");
-		System.out.println("★ \t7. 임직원 삭제\t ★");
-		System.out.println("★ \t8. 임직원 수정\t ★");
-		System.out.println("★ \t9. 인사파일 저장\t ★");
-		System.out.println("★ \t10. 오름차순 정렬\t ★");
-		System.out.println("★ \t11. 내림차순 정렬\t ★");
-		System.out.println("★ \t12. 종료\t\t ★");
+		System.out.printf("%s\t", "1. 임직원 가져오기");
+		System.out.printf("%s\t", "2. 임직원 추가입력");
+		System.out.printf("%s\n", "3. 임직원 출력");
+		System.out.printf("%s\t\t", "4. 급여 최대값");
+		System.out.printf("%s\t\t", "5. 급여 최소값");
+		System.out.printf("%s\n", "6. 임직원 검색");
+		System.out.printf("%s\t\t", "7. 임직원 삭제");
+		System.out.printf("%s\t\t", "8. 임직원 수정");
+		System.out.printf("%s\n", "9. 인사파일 저장");
+		System.out.printf("%s\t", "10. 오름차순 정렬");
+		System.out.printf("%s\t", "11. 내림차순 정렬");
+		System.out.printf("%s\n", "12. 종료");
 		System.out.println("★★★★★★★★★★★★★★★★★★★★★");
 	}
 	
