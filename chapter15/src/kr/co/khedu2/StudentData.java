@@ -1,4 +1,4 @@
-package kr.co.khedu;
+package kr.co.khedu2;
 
 import java.io.Serializable;
 

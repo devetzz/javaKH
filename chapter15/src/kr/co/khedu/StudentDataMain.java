@@ -1,6 +1,7 @@
 package kr.co.khedu;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -19,7 +20,7 @@ public class StudentDataMain {
 //		examsFileUpload();
 //	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		ArrayList<StudentData> stuList = new ArrayList<StudentData>();
 		examsFileUpload(stuList);
 		// 변수선언
@@ -61,10 +62,38 @@ public class StudentDataMain {
 			}
 				break;
 			case Menu.OUTPUT:
-				for(StudentData data : stuList) {
-					System.out.println(data.toString());
+			{
+				int page = 1;
+				Scanner scan = new Scanner(System.in);
+				while(true) {
+					// 전체페이지를 구한다.
+					int totalPage = stuList.size() / 5;
+					int remainValue = stuList.size() % 5;
+					if(remainValue != 0) {
+						totalPage += 1;
+					}
+					// 해당되는 페이지 시작위치, 끝위치
+					int start = 5*(page-1);
+					int stop = start+5;
+					
+					// 마지막 페이지일때 (나머지가 있을때) 끝위치가 1~4 증가
+					if(page == totalPage && remainValue != 0) {
+						totalPage += 1;
+						stop = start+remainValue;
+					}
+					
+					System.out.printf("현재 %d page / 전체 %d page \n", page, totalPage);
+					for(int i = start; i < stop; i++) {
+						System.out.println(stuList.get(i).toString());
+					}
+					
+					System.out.print("page 선택(-1 : exit) > ");
+					page = Integer.parseInt(scan.nextLine());
+					if(page == -1) {
+						break;
+					}
 				}
-				
+			}
 				break;
 			case Menu.MAX:
 			{
@@ -116,20 +145,30 @@ public class StudentDataMain {
 			case Menu.SAVE:
 			{
 				// 파일에서 가져온다. 보조스트림 정의 (PrintStream)
-				FileOutputStream fo = new FileOutputStream("res/exams.txt");
-				PrintStream out = new PrintStream(fo);
-				
-				// 컬럼명을 추가한다.
-				out.printf("%s", StudentDataMain.menuTitle);
-				
-				
-				for(int i = 0; i < stuList.size(); i++) {
-					StudentData stu = stuList.get(i);
-					out.printf("\n%s,%d,%d,%d", stu.getName(), stu.getKor(), stu.getEng(), stu.getMath());
+				FileOutputStream fo = null;
+				PrintStream out = null;
+				try {
+					fo = new FileOutputStream("res/exams.txt");
+					out = new PrintStream(fo);
+					// 컬럼명을 추가한다.
+					out.printf("%s", StudentDataMain.menuTitle);
+					
+					for(int i = 0; i < stuList.size(); i++) {
+						StudentData stu = stuList.get(i);
+						out.printf("\n%s,%d,%d,%d", stu.getName(), stu.getKor(), stu.getEng(), stu.getMath());
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} finally {
+					out.close();
+					try {
+						fo.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
+				
 				System.out.println("ArrayList 내용을 파일에 저장 완료하였습니다.");
-				out.close();
-				fo.close();
 				
 			}
 				break;
@@ -218,7 +257,7 @@ public class StudentDataMain {
 
 	private static void examsFileUpload(ArrayList<StudentData> stuList) {
 		// 파일에서 가져온다. 보조스트림 정의 (Scanner)
-		FileInputStream fi;
+		FileInputStream fi = null;
 		try {
 			fi = new FileInputStream("res/exams.txt");
 			Scanner scan = new Scanner(fi);
@@ -250,6 +289,12 @@ public class StudentDataMain {
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("로드에 문제가 발생했습니다. 점검 바랍니다.");
+		}finally {
+			try {
+				fi.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

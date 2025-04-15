@@ -1,4 +1,4 @@
-package kr.co.khedu;
+package kr.co.khedu2;
 
 public interface Menu {
 	// {"", "로드", "추가입력", "출력", "최대값", "최소값", "검색", "저장", "삭제", "수정", "종료"};
