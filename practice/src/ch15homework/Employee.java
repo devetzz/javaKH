@@ -1,7 +1,10 @@
 package ch15homework;
 
+import java.util.Objects;
+
 public class Employee implements Comparable {
-	// 멤버 변수 (이름, 부서, 급여, 등급, 보너스포인트, 총급여)
+	// 멤버 변수 (사번, 이름, 부서, 급여, 등급, 보너스포인트, 총급여)
+	private int id;
 	private String name;
 	private String dept;
 	private int salary;
@@ -11,7 +14,7 @@ public class Employee implements Comparable {
 	
 	// 생성자
 	public Employee() {
-		this(null, null, 0, '\0');
+		this(0, null, null, 0, '\0');
 	}
 	public Employee(String name, String dept, int salary, char grade) {
 		super();
@@ -20,8 +23,23 @@ public class Employee implements Comparable {
 		this.salary = salary;
 		this.grade = grade;
 	}
+	public Employee(int id, String name, String dept, int salary, char grade) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.dept = dept;
+		this.salary = salary;
+		this.grade = grade;
+	}
 	
 	// 멤버 함수
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -62,7 +80,7 @@ public class Employee implements Comparable {
 	// 출력 함수
 	@Override
 	public String toString() {
-		return "Employee [" + name + " " + dept + " " + salary + " " 
+		return "Employee [" + id + " " + name + " " + dept + " " + salary + " " 
 							+ grade + " " + bonus + " " + total + "]";
 	}
 	@Override
@@ -79,6 +97,18 @@ public class Employee implements Comparable {
 		}else {
 			return 0;
 		}
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Employee)) {
+			return false;
+		}
+		Employee emp = (Employee)obj;
+		return this.name.equals(emp.name);
 	}
 	
 	
