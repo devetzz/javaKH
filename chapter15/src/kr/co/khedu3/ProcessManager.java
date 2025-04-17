@@ -1,4 +1,4 @@
-package kr.co.khedu2;
+package kr.co.khedu3;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -25,7 +23,7 @@ public class ProcessManager {
 	}
 	
 	// 파일에 있는 데이터를 컬렉션 stuList에 저장
-	public void examsFileUpload(HashSet<StudentData> stuList) {
+	public void examsFileUpload(ArrayList<StudentData> stuList) {
 		// 파일에서 가져온다. 보조스트림 정의 (Scanner)
 		FileInputStream fi = null;
 		try {
@@ -51,7 +49,6 @@ public class ProcessManager {
 				StudentData stu = new StudentData(name, kor, eng, math);
 				stu.setTotal(total);
 				stu.setAvg(avg);
-				// HashSet : DB 내용을 가져와서 => ArrayList, HashSet
 				stuList.add(stu);
 			}
 			System.out.println("파일에서 ArrayList로 로드가 완료되었습니다.");
@@ -98,7 +95,7 @@ public class ProcessManager {
 	}
 
 	// 학생정보 stuList에 새로 추가
-	public void stuListInput(HashSet<StudentData> stuList) {
+	public void stuListInput(ArrayList<StudentData> stuList) {
 		// 키보드 입력 => StudentData 객체 =>  ArrayList => 파일
 		System.out.println("★★★ 학생 추가 ★★★");
 		Scanner scan = new Scanner(System.in);
@@ -115,16 +112,12 @@ public class ProcessManager {
 		StudentData stu = new StudentData(name, kor, eng, math);
 		stu.setTotal(total);
 		stu.setAvg(avg);
-		// HashSet을 통한 중복제거!!!
-		if(stuList.add(stu)) {
-			System.out.printf("%s 학생 정보가 추가되었습니다.\n", name);
-		}else {
-			System.out.printf("%s 학생 정보는 중복된 데이터로 추가되지 않습니다.\n", name);
-		}
+		stuList.add(stu);
+		System.out.printf("%s 학생 정보가 추가되었습니다.\n", name);
 	}
 	
-	// 학생 정보 페이징 기법으로 화면에 출력 (HashSet)
-	public void stuListPagePrint(HashSet<StudentData> stuList) {
+	// 학생 정보 페이징 기법으로 화면에 출력
+	public void stuListPagePrint(ArrayList<StudentData> stuList) {
 
 		int page = 1;
 		Scanner scan = new Scanner(System.in);
@@ -144,62 +137,11 @@ public class ProcessManager {
 				totalPage += 1;
 				stop = start+remainValue;
 			}
-			// hashset 은 일반 for문으로 불가능
-			System.out.printf("현재 %d page / 전체 %d page \n", page, totalPage);
-			// index가 없기 때문에 별도 count 변수 정의
-			int count = 0;
-			for(StudentData data : stuList) {
-				if(start <= count && count <= stop) {
-					System.out.println(data);
-				}
-				count++;
-			}
-//			for(int i = start; i < stop; i++) {
-//				System.out.println(stuList.get(i).toString());
-//			}
 			
-			System.out.print("page 선택(-1 : exit) > ");
-			page = Integer.parseInt(scan.nextLine());
-			if(page == -1) {
-				break;
-			}
-		}
-	}
-	
-	// 학생 정보 페이징 기법으로 화면에 출력 (ArrayList)
-	public void stuListPagePrint(ArrayList<StudentData> stuList) {
-		
-		int page = 1;
-		Scanner scan = new Scanner(System.in);
-		while(true) {
-			// 전체페이지를 구한다.
-			int totalPage = stuList.size() / 5;
-			int remainValue = stuList.size() % 5;
-			if(remainValue != 0) {
-				totalPage += 1;
-			}
-			// 해당되는 페이지 시작위치, 끝위치
-			int start = 5*(page-1);
-			int stop = start+5;
-			
-			// 마지막 페이지일때 (나머지가 있을때) 끝위치가 1~4 증가
-			if(page == totalPage && remainValue != 0) {
-				totalPage += 1;
-				stop = start+remainValue;
-			}
-			// hashset 은 일반 for문으로 불가능
 			System.out.printf("현재 %d page / 전체 %d page \n", page, totalPage);
-			// index가 없기 때문에 별도 count 변수 정의
-			int count = 0;
-			for(StudentData data : stuList) {
-				if(start <= count && count <= stop) {
-					System.out.println(data);
-				}
-				count++;
+			for(int i = start; i < stop; i++) {
+				System.out.println(stuList.get(i).toString());
 			}
-//			for(int i = start; i < stop; i++) {
-//				System.out.println(stuList.get(i).toString());
-//			}
 			
 			System.out.print("page 선택(-1 : exit) > ");
 			page = Integer.parseInt(scan.nextLine());
@@ -210,61 +152,37 @@ public class ProcessManager {
 	}
 	
 	// 학생정보 중 총점이 가장 높은 학생 정보 출력
-	public void stuListMax(HashSet<StudentData> stuList) {
+	public void stuListMax(ArrayList<StudentData> stuList) {
 		int max = Integer.MIN_VALUE;
-		
-		
-		StudentData studentMax = null;
-		for(StudentData data : stuList) {
-			if(max < data.getTotal()) {
-				max = data.getTotal();
-				studentMax = data;
+		int index = -1;
+		for(int i = 0; i < stuList.size(); i++) {
+			StudentData stuData = stuList.get(i);
+			if(max < stuData.getTotal()) {
+				max = stuData.getTotal();
+				index = i;
 			}
 		}
-		
-		
-//		int index = -1;
-//		for(int i = 0; i < stuList.size(); i++) {
-//			StudentData stuData = stuList.get(i);
-//			if(max < stuData.getTotal()) {
-//				max = stuData.getTotal();
-//				index = i;
-//			}
-//		}
 		System.out.printf("최대값은 total = %5d 입니다.\r", max);
-		System.out.printf("최대값을 가진 학생의 정보 : \n%s \r", studentMax);
+		System.out.printf("최대값을 가진 학생의 정보 : \n%s \r", stuList.get(index));
 	}
 	
 	// 학생정보 중 총점이 가장 낮은 학생 정보 출력
-	public void stuListMin(HashSet<StudentData> stuList) {
+	public void stuListMin(ArrayList<StudentData> stuList) {
 		int min = Integer.MAX_VALUE;
-		StudentData studentMin = null;
-		Iterator<StudentData> iterator = stuList.iterator();
-		while(true) {
-			if(!iterator.hasNext()) {
-				break;
-			}
-			StudentData data = iterator.next();
-			if(min > data.getTotal()) {
-				min = data.getTotal();
-				studentMin = data;
+		int index = -1;
+		for(int i = 0; i < stuList.size(); i++) {
+			StudentData stuData = stuList.get(i);
+			if(min > stuData.getTotal()) {
+				min = stuData.getTotal();
+				index = i;
 			}
 		}
-		
-//		int index = -1;
-//		for(int i = 0; i < stuList.size(); i++) {
-//			StudentData stuData = stuList.get(i);
-//			if(min > stuData.getTotal()) {
-//				min = stuData.getTotal();
-//				index = i;
-//			}
-//		}
 		System.out.printf("최소값은 total = %5d 입니다.\r", min);
-		System.out.printf("최소값을 가진 학생의 정보 : \n%s \r", studentMin);
+		System.out.printf("최소값을 가진 학생의 정보 : \n%s \r", stuList.get(index));
 	}
 	
 	// 학생 정보 이름으로 검색하여 정보 출력
-	public void stuListSearch(HashSet<StudentData> stuList) {
+	public void stuListSearch(ArrayList<StudentData> stuList) {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("검색할 이름 입력 : ");
 		String name = scan.nextLine();
@@ -281,7 +199,7 @@ public class ProcessManager {
 	}
 	
 	// 컬렉션에 저장된 데이터를 파일에 저장
-	public void stuListSave(HashSet<StudentData> stuList) {
+	public void stuListSave(ArrayList<StudentData> stuList) {
 		// 파일에서 가져온다. 보조스트림 정의 (PrintStream)
 		FileOutputStream fo = null;
 		PrintStream out = null;
@@ -290,13 +208,11 @@ public class ProcessManager {
 			out = new PrintStream(fo);
 			// 컬럼명을 추가한다.
 			out.printf("%s", StudentDataMain.menuTitle);
-			for(StudentData data : stuList) {
-				out.printf("\n%s,%d,%d,%d", data.getName(), data.getKor(), data.getEng(), data.getMath());
+			
+			for(int i = 0; i < stuList.size(); i++) {
+				StudentData stu = stuList.get(i);
+				out.printf("\n%s,%d,%d,%d", stu.getName(), stu.getKor(), stu.getEng(), stu.getMath());
 			}
-//			for(int i = 0; i < stuList.size(); i++) {
-//				StudentData stu = stuList.get(i);
-//				out.printf("\n%s,%d,%d,%d", stu.getName(), stu.getKor(), stu.getEng(), stu.getMath());
-//			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} finally {
@@ -312,30 +228,26 @@ public class ProcessManager {
 	}
 	
 	// 컬렉션 stuList에서 학생을 검색하여 삭제
-	public void stuListDel(HashSet<StudentData> stuList) {
+	public void stuListDel(ArrayList<StudentData> stuList) {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("삭제할 이름 : ");
 		String name = scan.nextLine();
-		StudentData deleteStu = null;
-		
+		boolean removeFlag = false;
 		for(StudentData stu : stuList) {
 			if(stu.getName().equals(name)) {
-//				System.out.printf("%s 삭제가 완료되었습니다.\n", stu.toString());
-//				stuList.remove(stu);
-				deleteStu = stu;
+				System.out.printf("%s 삭제가 완료되었습니다.\n", stu.toString());
+				stuList.remove(stu);
+				removeFlag = true;
 				break;
 			}
 		}
-		if(deleteStu != null) {
-			System.out.printf("%s 삭제가 완료되었습니다.\n", deleteStu);
-			stuList.remove(deleteStu);
-		}else {
+		if(removeFlag == false) {
 			System.out.printf("%s 학생은 없습니다.\n", name);
 		}
 	}
 	
 	// 학생정보 수정
-	public void studentDataUpdate(HashSet<StudentData> stuList) {
+	public void studentDataUpdate(ArrayList<StudentData> stuList) {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("수정할 학생 이름 : ");
 		String name = scan.nextLine();

@@ -1,20 +1,23 @@
-package kr.co.khedu2;
+package kr.co.khedu3;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 
 public class StudentDataMain {
 	
 //	public static String[] menu = new String[] {"", "로드", "추가입력", "출력", "최대값", "최소값", "검색", "저장", "삭제", "수정", "종료"};
 	public static String menuTitle;
+//	public static ArrayList<StudentData> stuList = new ArrayList<StudentData>();
+//	static {
+//		// exams 파일을 프로그램 실행(main 작동)하기 전에 로드하여 stuList에 세팅한다.
+//		examsFileUpload();
+//	}
 	
 	public static void main(String[] args) {
 		// 1. 프로젝트 매니저 객체
 		ProcessManager pm = ProcessManager.getInstance();
 		// 2. 파일에 있는 데이터를 저장하기 위한 컬렉션
-//		ArrayList<StudentData> stuList = new ArrayList<StudentData>();
-		HashSet<StudentData> stuList = new HashSet<StudentData>();
+		ArrayList<StudentData> stuList = new ArrayList<StudentData>();
 		// 3. 파일에 있는 내용을 컬렉션 stuList에 저장
 		pm.examsFileUpload(stuList);
 		// 4. 변수선언(무한 반복문 실행을 위한 변수)
@@ -66,17 +69,12 @@ public class StudentDataMain {
 				break;
 			case Menu.ASC:
 				// 오름차순 정렬
-				// HashSet에는 정렬이 없기때문에 ArrayList로 변경하여 정렬
-				ArrayList<StudentData> ascList = new ArrayList<>(stuList);
-				Collections.sort(ascList);
-				pm.stuListPagePrint(ascList);
+				Collections.sort(stuList);
 				System.out.println("오름차순 정렬 완료.");
 				break;
 			case Menu.DESC:
 				// 내림차순 정렬
-				ArrayList<StudentData> descList = new ArrayList<>(stuList);
-				Collections.sort(descList, Collections.reverseOrder());
-				pm.stuListPagePrint(descList);
+				Collections.sort(stuList, Collections.reverseOrder());
 				System.out.println("내림차순 정렬 완료.");
 				break;
 			case Menu.EXIT:

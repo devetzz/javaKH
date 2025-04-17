@@ -10,6 +10,39 @@
 
 
 Java
+2025.04.17 (19일차)
+
+HashSet 을 정렬하려면 (택1)
+ - List 로 바꿔라
+ - TreeSet 으로 바꿔라
+ - Stream 으로 바꿔라
+
+
+Set은 인덱스 정보가 없기 때문에 get이 없다
+향상된 for문 또는 iterator를 통해 가져온다
+
+TreeSet => Set에 정렬/검색 기능 추가
+ - 객체 타입 선언시 Set이 아닌 TreeSet으로 선언
+
+
+Map
+Map은 Key와 Value값으로 이루어져 있다.
+ - Key를 인덱스에 사용
+ - Collection과 별개의 interface임(List, Set과 기본 메소드 다름)
+
+HashTable : 동기화 처리에 사용
+
+put(), replace(), get(), remove()
+
+for문을 쓰기위해 keySet으로 key값을 Set으로 변경하여 출력
+
+
+
+
+
+
+
+
 2025.04.16 (18일차)
 
 제네릭
@@ -67,8 +100,6 @@ HashSet() : 중복확인 매커니즘
  1. hashCode()가 동일한지 확인
  2. equals() 결과가 true인지 확인
  > 둘다 오버라이딩 해라
-
-
 
 
 

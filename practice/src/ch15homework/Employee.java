@@ -90,9 +90,9 @@ public class Employee implements Comparable {
 		if(o instanceof Employee) {
 			emp = (Employee)o;
 		}
-		if(this.getTotal() > emp.getTotal()) {
+		if(this.total> emp.getTotal()) {
 			return 1;
-		}else if (this.getTotal() < emp.getTotal()) {
+		}else if (this.total < emp.getTotal()) {
 			return -1;
 		}else {
 			return 0;

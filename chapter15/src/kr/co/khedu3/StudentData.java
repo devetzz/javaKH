@@ -1,7 +1,6 @@
-package kr.co.khedu2;
+package kr.co.khedu3;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class StudentData implements Serializable, Comparable{
 	// 멤버 변수
@@ -111,9 +110,6 @@ public class StudentData implements Serializable, Comparable{
 			return this.name.equals(stu.name);
 		}
 		
-		@Override
-		public int hashCode() {
-			return Objects.hash(name);
-		}
+		
 		
 }

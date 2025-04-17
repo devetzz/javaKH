@@ -17,20 +17,20 @@ public interface Menu {
 	
 	public static void menuPrint() {
 		// 메뉴
-		System.out.println("★★★★★★★★ MENU ★★★★★★★★");
+		System.out.println("★★★★★★★★★★★★★★ MENU ★★★★★★★★★★★★★★");
 		System.out.printf("%s\t", "1. 임직원 가져오기");
 		System.out.printf("%s\t", "2. 임직원 추가입력");
 		System.out.printf("%s\n", "3. 임직원 출력");
-		System.out.printf("%s\t\t", "4. 급여 최대값");
-		System.out.printf("%s\t\t", "5. 급여 최소값");
+		System.out.printf("%s\t", "4. 급여 최대값");
+		System.out.printf("%s\t", "5. 급여 최소값");
 		System.out.printf("%s\n", "6. 임직원 검색");
-		System.out.printf("%s\t\t", "7. 임직원 삭제");
-		System.out.printf("%s\t\t", "8. 임직원 수정");
+		System.out.printf("%s\t", "7. 임직원 삭제");
+		System.out.printf("%s\t", "8. 임직원 수정");
 		System.out.printf("%s\n", "9. 인사파일 저장");
 		System.out.printf("%s\t", "10. 오름차순 정렬");
 		System.out.printf("%s\t", "11. 내림차순 정렬");
 		System.out.printf("%s\n", "12. 종료");
-		System.out.println("★★★★★★★★★★★★★★★★★★★★★");
+		System.out.println("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 	}
 	
 	
