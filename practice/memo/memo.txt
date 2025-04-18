@@ -58,7 +58,9 @@ Thread thread2 = new Thread(new Runnable() {
 
 
 
+북마켓 팀에서 결정 (월요일에 살짝 설명해줄것)
 
+25일까지 제출
 
 
 
