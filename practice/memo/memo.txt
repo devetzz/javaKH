@@ -10,6 +10,21 @@
 
 
 Java
+2025.04.22 (22일차)
+Working Directory : 작업(변경사항 생성)하는 디렉터리
+ - Git은 수정(삽입/수정/삭제/생성) 내용을 추적
+add : Stage에 올리는 것
+Stage : 변경 사항이 있는 파일 중 다음 버전이 될 후보가 올라가는 공간 (staging area 또는 index라고도 부르며 눈에 보이지 않음)
+commit : 저장소에 새로운 버전을 만드는 것
+push : Remote Repository에 올림
+pull : Remote Repository에 있는 소스를 Local Repository로 가져옴
+Local Repository : 로컬 저장소
+Remote Repository : 원격 저장소
+
+
+
+
+
 2025.04.21 (21일차)
 
 오늘부터
