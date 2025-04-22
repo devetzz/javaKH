@@ -20,6 +20,23 @@ push : Remote Repository에 올림
 pull : Remote Repository에 있는 소스를 Local Repository로 가져옴
 Local Repository : 로컬 저장소
 Remote Repository : 원격 저장소
+tracted : 관리 대상 파일 (한번이라도 commit 했던 파일)
+untracted : 관리 대상이 아닌 파일 (변경사항을 추적하지 않던 새로운 파일)
+.gitignore
+
+tag : 특정 커밋에 붙이는 꼬리표
+
+revert : 버전을 되돌리되, 되돌아간 상태에 대한 새로운 버전을 만드는 방식(commit history 유지)
+ - 커밋 되돌리기
+ - 한 버전씩 진행해야 함
+reset : 되돌아갈 버전의 시점으로 완전하게 돌아가는 방식(돌아갈 버전 이후의 버전들은 삭제됨)
+ - soft : 커밋 바로전 상태로 되돌림(스테이지에 올린 상태) - 커밋 제거
+ - mixed : 변경 상태는 유지하면서 스테이지에는 올라가지 않는 상태로 되돌림(변경 사항만 남은 상태) - 스테이지가지 제거
+ - hard : 스테이지 + 변경 내용 까지 되돌림(변경 전 상태) - 변경내용까지 제거
+
+충돌이 안나게 하는 방법 : 깃허브에 올린순간 되돌리기 할 생각 하지마라(reset 금지)
+
+
 
 
 
