@@ -1,0 +1,4 @@
+movieNum,movieName,releaseDate,reservationCount
+1,극한직업,2019-01-23,4
+2,범죄도시1,2017-10-03,3
+3,괴물,2006-07-27,3
