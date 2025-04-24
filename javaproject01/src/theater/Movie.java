@@ -1,29 +1,29 @@
 package theater;
 
-public class Movie {
+public class Movie implements Comparable {
 
 	private int movieNum;
 	private String movieName;
-	private String movieDate;
-	private int reservationNum;
+	private String releaseDate;
+	private int reservationCount;
 	
 	public Movie() {
 		this(0,null,null);
 	}
 
-	public Movie(int movieNum, String movieName, String movieDate) {
+	public Movie(int movieNum, String movieName, String releaseDate) {
 		super();
 		this.movieNum = movieNum;
 		this.movieName = movieName;
-		this.movieDate = movieDate;
+		this.releaseDate = releaseDate;
 	}
 
-	public Movie(int movieNum, String movieName, String movieDate, int reservationNum) {
+	public Movie(int movieNum, String movieName, String releaseDate, int reservationCount) {
 		super();
 		this.movieNum = movieNum;
 		this.movieName = movieName;
-		this.movieDate = movieDate;
-		this.reservationNum = reservationNum;
+		this.releaseDate = releaseDate;
+		this.reservationCount = reservationCount;
 	}
 
 	public int getMovieNum() {
@@ -42,25 +42,41 @@ public class Movie {
 		this.movieName = movieName;
 	}
 
-	public String getMovieDate() {
-		return movieDate;
+	public String getReleaseDate() {
+		return releaseDate;
 	}
 
-	public void setMovieDate(String movieDate) {
-		this.movieDate = movieDate;
+	public void setReleaseDate(String movieDate) {
+		this.releaseDate = movieDate;
 	}
 
-	public int getReservationNum() {
-		return reservationNum;
+	public int getReservationCount() {
+		return reservationCount;
 	}
 
-	public void setReservationNum(int reservationNum) {
-		this.reservationNum = reservationNum;
+	public void setReservationCount(int reservationCount) {
+		this.reservationCount = reservationCount;
 	}
 
 	@Override
 	public String toString() {
-		return "Movie [" + movieNum + ", " + movieName + ", " + movieDate + "]";
+		return "Movie [" + movieNum + ", " + movieName + ", " + releaseDate + "]";
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		// 부모 영역에 자식이 있는지 확인
+		Reservation reservation = null;
+		if(o instanceof Reservation) {
+			reservation = (Reservation)o;
+		}
+		if(this.reservationCount> reservation.getReservationCount()) {
+			return 1;
+		}else if (this.reservationCount < reservation.getReservationCount()) {
+			return -1;
+		}else {
+			return 0;
+		}
 	}
 	
 }

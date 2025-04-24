@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 public class MovieReservationSystem {
 
 	
+	public static String movieField;
+	public static String reservationField;
+	public static String reviewField;
 	public static void main(String[] args) {
 		// 변수 선언
 		boolean stopFlag = false;
@@ -41,9 +44,14 @@ public class MovieReservationSystem {
 					
 					switch(manageNo) {
 					case Menu.MOVIEADD:
+						func.movieAdd(mvList, s);
 						break;
-					case Menu.MOVIEMODIFY:break;
-					case Menu.MOVIEREMOVE:break;
+					case Menu.MOVIEMODIFY:
+						func.movieModify(mvList, s);
+						break;
+					case Menu.MOVIEREMOVE:
+						func.movieRemove(mvList, s);
+						break;
 					case Menu.MANAGEEXIT:break;
 					}// manage switch
 					break;

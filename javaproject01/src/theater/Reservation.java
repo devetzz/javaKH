@@ -1,27 +1,28 @@
 package theater;
 
+
 public class Reservation extends Movie {
-	private int phoneNum;
+	private String phoneNum;
 	private String userName;
 	//movieName
 	private int seatNum;
 	
 	public Reservation() {
-		this(0,null,null,0);
+		this(null,null,null,0);
 	}
 
-	public Reservation(int phoneNum, String userName, String movieName, int seatNum) {
+	public Reservation(String phoneNum, String userName, String movieName, int seatNum) {
 		super();
 		this.phoneNum = phoneNum;
 		this.userName = userName;
 		this.seatNum = seatNum;
 	}
 
-	public int getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
@@ -45,6 +46,7 @@ public class Reservation extends Movie {
 	public String toString() {
 		return "Reservation [" + phoneNum + ", " + userName + ", " + this.getMovieName() + ", " + seatNum + "]";
 	}
+
 	
 	
 }
