@@ -19,10 +19,10 @@ public interface ReservationFuncInterface {
 	
 	public void movieList(ArrayList<Movie> mvList, Scanner s);
 	
-	public void reservationAsc(ArrayList<Reservation> rsvList);
-	public void reservationDesc(ArrayList<Reservation> rsvList);
-	public void reservationMax(ArrayList<Reservation> rsvList);
-	public void reservationMin(ArrayList<Reservation> rsvList);
+	public void reservationAsc(ArrayList<Movie> rsvList);
+	public void reservationDesc(ArrayList<Movie> rsvList);
+	public void reservationMax(ArrayList<Movie> rsvList);
+	public void reservationMin(ArrayList<Movie> rsvList);
 
 	public void reservationAdd(ArrayList<Reservation> rsvList, Scanner s);
 	public void reservationCancle(ArrayList<Reservation> rsvList, Scanner s);
@@ -30,7 +30,7 @@ public interface ReservationFuncInterface {
 	public void reservationModify(ArrayList<Reservation> rsvList, Scanner s);
 
 	public void reviewWrite(ArrayList<Review> rvList, Scanner s);
-	public void reviewPrint(ArrayList<Review> rvList);
+	public void reviewPrint(ArrayList<Review> rvList, Scanner s);
 	
 	public String PatternInspection(Scanner s, String string, String regex);
 

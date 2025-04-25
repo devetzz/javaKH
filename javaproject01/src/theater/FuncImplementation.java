@@ -301,25 +301,41 @@ public class FuncImplementation implements ReservationFuncInterface {
 	}
 
 	@Override
-	public void reservationAsc(ArrayList<Reservation> rsvList) {
-		Collections.sort(rsvList);
+	public void reservationAsc(ArrayList<Movie> mvList) {
+		Collections.sort(mvList);
 		System.out.println("---오름차순 정렬 완료---");
 	}
 
 	@Override
-	public void reservationDesc(ArrayList<Reservation> rsvList) {
-		Collections.sort(rsvList, Collections.reverseOrder());
+	public void reservationDesc(ArrayList<Movie> mvList) {
+		Collections.sort(mvList, Collections.reverseOrder());
 		System.out.println("---내림차순 정렬 완료---");
 	}
 
 	@Override
-	public void reservationMax(ArrayList<Reservation> rsvList) {
-
+	public void reservationMax(ArrayList<Movie> mvList) {
+		int max = Integer.MIN_VALUE;
+		Movie movie = null;
+		for(Movie data : mvList) {
+			if(data.getReservationCount() > max) {
+				max = data.getReservationCount();
+				movie = data;
+			}
+		}
+		System.out.println("가장 예매율이 높은 영화는 " + movie.getMovieName() + " / " + max + "입니다.");
 	}
 
 	@Override
-	public void reservationMin(ArrayList<Reservation> rsvList) {
-
+	public void reservationMin(ArrayList<Movie> mvList) {
+		int min = Integer.MAX_VALUE;
+		Movie movie = null;
+		for(Movie data : mvList) {
+			if(data.getReservationCount() < min) {
+				min = data.getReservationCount();
+				movie = data;
+			}
+		}
+		System.out.println("가장 예매율이 낮은 영화는 " + movie.getMovieName() + " / " + min + "입니다.");
 	}
 
 	@Override
@@ -344,12 +360,53 @@ public class FuncImplementation implements ReservationFuncInterface {
 
 	@Override
 	public void reviewWrite(ArrayList<Review> rvList, Scanner s) {
-
+		System.out.println("---리뷰 작성---");
+		
+		int max = Integer.MIN_VALUE;
+		for(Review data : rvList) {
+			if(max < data.getReviewNum()) {
+				max = data.getReviewNum();
+			}
+		}
+		int reviewNum = max+1;
+		int movieNum = Integer.parseInt(PatternInspection(s, "영화 번호 입력 : ", "^[0-9]{1,2}$"));
+		double reiewRate = Double.parseDouble(PatternInspection(s, "평점 입력 : ", "\\b(?:[0-4]\\.[0-9]|5\\.0)\\b"));
+		String comment = PatternInspection(s, "코멘트 입력 : ", "^[A-Za-z가-힣ㄱ-ㅎ0-9]{1,100}$");
+		
+		Review review = new Review(reviewNum, movieNum, reiewRate, comment);
+		
+		rvList.add(review);
 	}
 
 	@Override
-	public void reviewPrint(ArrayList<Review> rvList) {
+	public void reviewPrint(ArrayList<Review> rvList, Scanner s) {
+		System.out.println("---리뷰 조회---");
+		int page = 1;
+		while(true) {
+			// 전체 페이지를 구한다
+			int totalPage = rvList.size() / 10;
+			int remainValue = rvList.size() % 10;
+			if(remainValue != 0) {
+				totalPage += 1;
+			}
+			// 해당 페이지의 시작위치, 끝위치를 구한다.
+			int first = 10 * (page - 1);
+			int last = first + 10;
+			// 마지막페이지에 나머지가 있을때 끝위치를 정한다.
+			if(remainValue != 0 && page == totalPage) {
+				last = first + remainValue;
+			}
+			// for문을 통해 페이지별 출력
+			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+			for(int i = first; i < last; i++) {
+				System.out.println(rvList.get(i));
+			}
+			page = Integer.parseInt(PatternInspection(s, "Page 입력 (Exit : -1) > ", "^[0-9]{1,2}$"));
 
+			if(page == -1) {
+				break;
+			}
+		}
 	}
 
 	@Override

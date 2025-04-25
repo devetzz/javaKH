@@ -56,6 +56,7 @@ public class MovieReservationSystem {
 					}// manage switch
 					break;
 				case Menu.MOVIELIST:
+					func.movieList(mvList, s);
 					break;
 				case Menu.MOVIERANK:
 					// 순위 메뉴
@@ -63,10 +64,18 @@ public class MovieReservationSystem {
 					int rankNo = Integer.parseInt(PatternInspection(s,"메뉴 입력 > ","^[1-5]{1}$"));
 					
 					switch(rankNo) {
-					case Menu.ACS:break;
-					case Menu.DESC:break;
-					case Menu.MAX:break;
-					case Menu.MIN:break;
+					case Menu.ACS:
+						func.reservationAsc(mvList);
+						break;
+					case Menu.DESC:
+						func.reservationDesc(mvList);
+						break;
+					case Menu.MAX:
+						func.reservationMax(mvList);
+						break;
+					case Menu.MIN:
+						func.reservationMin(mvList);
+						break;
 					case Menu.RANKEXIT:break;
 					}// rank switch
 					
