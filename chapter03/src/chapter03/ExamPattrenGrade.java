@@ -17,7 +17,6 @@ public class ExamPattrenGrade {
 			int korScore = 0;
 			int engScore = 0;
 			int mathScore = 0;
-			char grade = 0;
 			
 			// 입력
 			do {

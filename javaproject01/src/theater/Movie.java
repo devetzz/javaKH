@@ -1,6 +1,6 @@
 package theater;
 
-public class Movie implements Comparable {
+public class Movie implements Comparable<Movie> {
 
 	private int movieNum;
 	private String movieName;
@@ -60,19 +60,19 @@ public class Movie implements Comparable {
 
 	@Override
 	public String toString() {
-		return "Movie [" + movieNum + ", " + movieName + ", " + releaseDate + "]";
+		return "Movie [" + movieNum + ", " + movieName + ", " + releaseDate + ", " + reservationCount + "]";
 	}
 	
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(Movie o) {
 		// 부모 영역에 자식이 있는지 확인
-		Reservation reservation = null;
-		if(o instanceof Reservation) {
-			reservation = (Reservation)o;
+		Movie movie = null;
+		if(o instanceof Movie) {
+			movie = (Movie)o;
 		}
-		if(this.reservationCount> reservation.getReservationCount()) {
+		if(this.reservationCount> movie.getReservationCount()) {
 			return 1;
-		}else if (this.reservationCount < reservation.getReservationCount()) {
+		}else if (this.reservationCount < movie.getReservationCount()) {
 			return -1;
 		}else {
 			return 0;

@@ -12,7 +12,7 @@ public class Reservation extends Movie {
 	}
 
 	public Reservation(String phoneNum, String userName, String movieName, int seatNum) {
-		super();
+		this.setMovieName(movieName);
 		this.phoneNum = phoneNum;
 		this.userName = userName;
 		this.seatNum = seatNum;

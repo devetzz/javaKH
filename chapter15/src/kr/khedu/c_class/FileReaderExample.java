@@ -1,6 +1,5 @@
 package kr.khedu.c_class;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -24,31 +23,6 @@ public class FileReaderExample {
 		// 종료
 		fr.close();
 		System.out.println("End");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

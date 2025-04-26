@@ -11,7 +11,7 @@ public class Review extends Movie{
 	}
 
 	public Review(int reviewNum, int movieNum, double reviewRate, String comment) {
-		super();
+		this.setMovieNum(movieNum);
 		this.reviewNum = reviewNum;
 		this.reviewRate = reviewRate;
 		this.comment = comment;

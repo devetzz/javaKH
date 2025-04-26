@@ -9,6 +9,8 @@ public class Calculation {
 		number1 = 20;
 		number2 = 10;
 		
+
+		
 		// 연산
 		
 		// 출력

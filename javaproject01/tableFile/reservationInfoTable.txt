@@ -9,3 +9,4 @@ phoneNum,userName,movieName,seatNum
 010-7777-8888,유다은,괴물,50
 010-6666-5555,김태호,범죄도시1,8
 010-4444-1111,윤해진,극한직업,21
+010-1111-1111,parkkangho,ironman,30

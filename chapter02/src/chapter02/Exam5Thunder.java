@@ -2,6 +2,7 @@ package chapter02;
 
 import java.util.Scanner;
 
+
 public class Exam5Thunder {
 
 	public static void main(String[] args) {
