@@ -681,7 +681,7 @@ public class FuncImplementation implements ReservationFuncInterface {
 	public String PatternInspection(Scanner s, String string, String regex) {
 		System.out.print(string);
 		String input = s.nextLine();
-		if(Pattern.matches(regex, input) == true) {
+		if(Pattern.matches(regex, input)) {
 			return input;
 		}else {
 			System.out.println("유효한 값을 입력해주세요.");
