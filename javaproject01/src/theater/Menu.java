@@ -53,7 +53,7 @@ public interface Menu {
 		System.out.printf("%s\t", "2. 영화 순위");
 		System.out.printf("%s\t", "3. 영화 예매");
 		System.out.printf("%s\t", "4. 영화 리뷰");
-		System.out.printf("%s\n", "5. 종료");
+		System.out.printf("%s\n", "5. 로그아웃");
 		System.out.println("----------------------------------------------------------------------");
 	}
 	
@@ -64,7 +64,7 @@ public interface Menu {
 		System.out.printf("%s\t", "2. 영화 순위");
 		System.out.printf("%s\t", "3. 영화 예매");
 		System.out.printf("%s\t", "4. 영화 리뷰");
-		System.out.printf("%s\n", "5. 종료");
+		System.out.printf("%s\n", "5. 로그아웃");
 		System.out.println("----------------------------------------------------------------------");
 	}
 	

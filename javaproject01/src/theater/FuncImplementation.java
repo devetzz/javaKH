@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 
-public class FuncImplementation implements ReservationFuncInterface {
+public class FuncImplementation extends Thread implements ReservationFuncInterface{
 	public static final String adminID = "admin";
 	public static final String adminPW = "1q2w3e4r";
 
@@ -305,6 +305,7 @@ public class FuncImplementation implements ReservationFuncInterface {
 		
 		int page = 1;
 		while(true) {
+			clear();
 			// 전체 페이지를 구한다
 			int totalPage = mvList.size() / 10;
 			int remainValue = mvList.size() % 10;
@@ -342,8 +343,14 @@ public class FuncImplementation implements ReservationFuncInterface {
 	public void reservationAsc(ArrayList<Movie> mvList, Scanner s) {
 		Collections.sort(mvList);
 		System.out.println("---오름차순 정렬 완료---");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		int page = 1;
 		while(true) {
+			clear();
 			// 전체 페이지를 구한다
 			int totalPage = mvList.size() / 10;
 			int remainValue = mvList.size() % 10;
@@ -380,8 +387,14 @@ public class FuncImplementation implements ReservationFuncInterface {
 	public void reservationDesc(ArrayList<Movie> mvList, Scanner s) {
 		Collections.sort(mvList, Collections.reverseOrder());
 		System.out.println("---내림차순 정렬 완료---");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		int page = 1;
 		while(true) {
+			clear();
 			// 전체 페이지를 구한다
 			int totalPage = mvList.size() / 10;
 			int remainValue = mvList.size() % 10;
@@ -510,6 +523,7 @@ public class FuncImplementation implements ReservationFuncInterface {
 	public void reservationCheck(ArrayList<Reservation> rsvList, Scanner s) {
 		int page = 1;
 		while(true) {
+			clear();
 			// 전체 페이지를 구한다
 			int totalPage = rsvList.size() / 10;
 			int remainValue = rsvList.size() % 10;
@@ -689,5 +703,22 @@ public class FuncImplementation implements ReservationFuncInterface {
 		}
 	}
 
+	// clear 함수
+	public static void clear() {
+		try {
+            String operatingSystem = System.getProperty("os.name");
+            if (operatingSystem.contains("Windows")) {
+                ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");
+                Process startProcess = pb.inheritIO().start();
+                startProcess.waitFor();
+            } else {
+                ProcessBuilder pb = new ProcessBuilder("clear");
+                Process startProcess = pb.inheritIO().start();
+                startProcess.waitFor();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+	}
 
 }
