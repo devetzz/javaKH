@@ -9,4 +9,6 @@
     "java.debug.settings.vmArgs": "-Dfile.encoding=UTF-8",
 
     "terminal.integrated.encoding": "utf8"
+
+    
 }

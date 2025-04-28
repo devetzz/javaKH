@@ -244,7 +244,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 		}
 		int movieNum = max+1;
 		
-		String movieName = PatternInspection(s, "등록할 영화 이름 : ", "(?u)^[\\uAC00-\\uD7A3a-zA-Z0-9\\s]{1,30}$");
+		String movieName = PatternInspection(s, "등록할 영화 이름 : ", "^[가-힣a-zA-Z0-9\\s]{1,30}$");
 		String releaseDate = PatternInspection(s, "등록할 영화 개봉일 : ", "\\d{4}-\\d{2}-\\d{2}");
 		Movie movie = new Movie(movieNum, movieName, releaseDate, 0);
 		mvList.add(movie);

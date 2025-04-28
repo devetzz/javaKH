@@ -25,7 +25,7 @@ public class Movie implements Comparable<Movie> {
 		this.releaseDate = releaseDate;
 		this.reservationCount = reservationCount;
 	}
-
+	
 	public int getMovieNum() {
 		return movieNum;
 	}
