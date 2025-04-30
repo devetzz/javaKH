@@ -12,3 +12,7 @@ interface B {
     // 입력 없고, 리턴 있다.
     int methodB();
 }
+
+interface Mystery{
+    void methodMystery(int a);
+}

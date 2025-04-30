@@ -20,7 +20,6 @@ public class ArrayListTotalTest {
 			menuPrint();
 
 			int choice = 0;
-
 			choice = selectMenu();
 			
 			
