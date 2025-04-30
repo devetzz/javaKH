@@ -15,7 +15,7 @@ public class MovieReservationSystem extends Thread {
 		boolean stopFlag = false;
 		boolean adminStop = false;
 		boolean userStop = false;
-		Scanner s = new Scanner(System.in);
+		Scanner s = new Scanner(System.in, "EUC-KR");
 		ArrayList<Movie> mvList = new ArrayList<>();
 		ArrayList<Reservation> rsvList = new ArrayList<>();
 		ArrayList<Review> rvList = new ArrayList<>();
@@ -24,7 +24,6 @@ public class MovieReservationSystem extends Thread {
 		func.movieFileUpload(mvList);
 		func.reservationFileUpload(rsvList);
 		func.reviewFileUpload(rvList);
-
 		// 반복문(입력, 출력, 종료)
 		while (!stopFlag) {
 			// 사용자 선택 메뉴
