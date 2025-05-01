@@ -24,6 +24,24 @@
 
 
 Java
+2025.05.01 (29일차)
+
+자바 API의 함수적 인터페이스
+Consumer<T>	=> 입력값 O , 리턴값 X		=>	accept()
+Supplier<T> 	=> 입력값 X , 리턴값 O		=>	get()
+Predicate<T>	=> 입력값 O , 리턴값 O		=>	test()
+Function<T, R>	=> 입력값 T  , 리턴값 R		=>	apply()
+UnaryOperater<T>	=> 입력값 T , 리턴값 T		=>	apply()
+BinaryOperater<T>	=> 입력값 T , 리턴값 T		=>	apply()
+
+
+HTML start
+
+
+
+
+
+
 2025.04.30 (28일차)
 
 람다식
@@ -36,14 +54,6 @@ Java
  - 클래스이름::인스턴스메서드 이름
  - 배열타입::new
  - 클래스이름::new
-
-
-자바 API의 함수적 인터페이스
-Consumer => 입력값 O , 리턴값 X
-
-
-
-
 
 
 
