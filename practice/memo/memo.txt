@@ -10,20 +10,27 @@
 
 
 
-=======================
-월요일 오전 메모리 중심 수업
-미비된것 다음날
 
-2~4시 시험
-
-4시부터 발표or git협업 > 화요일발표
-
-수 람다식
-목 UI (BootStrap)
 =======================
 
 
 Java
+2025.05.02 (30일차)
+시맨틱 태그 (header, nav, footer, main, aside, section, article)
+테이블 시맨틱 태그 (thead, tbody, tfooter)
+
+<colgroup>
+<col> : 컬럼별로 스타일 지정 시 사용
+
+
+
+과제 : 책 119p 1번
+표 그리기
+
+
+
+
+
 2025.05.01 (29일차)
 
 자바 API의 함수적 인터페이스
@@ -36,9 +43,6 @@ BinaryOperater<T>	=> 입력값 T , 리턴값 T		=>	apply()
 
 
 HTML start
-
-
-
 
 
 
