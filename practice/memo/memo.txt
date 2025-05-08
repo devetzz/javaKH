@@ -15,6 +15,22 @@
 
 
 Java
+2025.05.08 (32일차)
+
+font-size
+ - rem : html의 폰트 크기를 따라감
+ - em : 상위 구역의 폰트 크기를 따라감
+
+css의 꽃 : flex
+ + position
+
+
+과제
+flexbpx froggy 24단계
+
+
+
+
 2025.05.07 (31일차)
 서버 : 윈도우 -> 아파치 서버로 진행 예정
 
@@ -56,10 +72,6 @@ HTML
 8. css 선택자 { 속성 : 값; }
 9. 선택자 : 인라인, 내부, 외부
 우선순위 : !important > inline > id > class > type
-
-
-
-
 
 
 
