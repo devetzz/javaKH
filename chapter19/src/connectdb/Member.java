@@ -4,9 +4,6 @@ public class Member {
     private String firstName;
     private int salary;
     
-    
-    
-
     public Member() {
         this(null, 0);
     }
@@ -20,15 +17,12 @@ public class Member {
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public int getSalary() {
         return salary;
     }
-
     public void setSalary(int salary) {
         this.salary = salary;
     }
@@ -37,16 +31,5 @@ public class Member {
     public String toString() {
         return "FIRST_NAME : " + firstName + " | " + "SALARY : " + salary;
     }
-    
-    // @Override
-    // public boolean equals(Object obj) {
-    //     // TODO Auto-generated method stub
-    //     return super.equals(obj);
-    // }
-    // @Override
-    // public int hashCode() {
-    //     // TODO Auto-generated method stub
-    //     return super.hashCode();
-    // }
     
 }
