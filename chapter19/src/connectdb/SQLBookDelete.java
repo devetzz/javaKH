@@ -5,9 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
@@ -50,11 +50,12 @@ public class SQLBookDelete{
 
         // 4. Statement
         try {
-            Statement stmt = conn.createStatement();
+            // Statement stmt = conn.createStatement();
             // delete 1. 삭제할 리스트를 보여주고 조건을 받는다
-
+            String selectSQL = "SELECT * FROM BOOKS";
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL);
             // 5. DML 오라클에서 실행(executeQuery, executeUpdate) 후 결과 출력
-            ResultSet rs = stmt.executeQuery("SELECT * FROM BOOKS");
+            ResultSet rs = pstmt.executeQuery(selectSQL);
             // 6. Collection Framework
             while(rs.next()){
                 int bookId = rs.getInt("BOOK_ID");
@@ -76,10 +77,12 @@ public class SQLBookDelete{
             int bookId = Integer.parseInt(sc.nextLine());
 
             // delete 2. 삭제할 쿼리문
-            String deleteSQL = "DELETE FROM BOOKS WHERE BOOK_ID = " + bookId;
-
+            String deleteSQL = "DELETE FROM BOOKS WHERE BOOK_ID = ?";
+            pstmt = conn.prepareStatement(deleteSQL);
             // 5. DML 오라클에서 실행(executeQuery, executeUpdate) 후 (결과, 결과 count) 출력
-            int count = stmt.executeUpdate(deleteSQL);
+            pstmt.setInt(1, bookId);
+            
+            int count = pstmt.executeUpdate();
             if(count == 0){
                 System.out.println("delete 실패");
             }else{

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,7 +26,7 @@ public class SQLBookSelect{
             String filePath = "D:/gitCode/javaKH/chapter19/src/connectdb/db.properties";
             // 2단계 2. properties 객체를 만든다.
             Properties properties = new Properties();
-            // 2단계 3. properties 객체에 해당괸 파일을 로드한다.
+            // 2단계 3. properties 객체에 해당된 파일을 로드한다.
             properties.load(new FileReader(filePath));
             System.out.println("db.properties 로드 성공");
             //2단계 4. 로드된 파일을 properties 키값으로 value 가져온다.
@@ -49,9 +50,14 @@ public class SQLBookSelect{
 
         // 4. Statement
         try {
-            Statement stmt = conn.createStatement();
+            // Statement stmt = conn.createStatement();
+            // String selectSQL = "SELECT * FROM BOOKS WHERE BOOK_ID = ?";
+            String selectSQL = "SELECT * FROM BOOKS";
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL);
             // 5. DML 오라클에서 실행(executeQuery, executeUpdate) 후 결과 출력
-            ResultSet rs = stmt.executeQuery("SELECT * FROM BOOKS");
+            int _bookId = 3;
+            // pstmt.setInt(1, _bookId);
+            ResultSet rs = pstmt.executeQuery();
             // 6. Collection Framework
             while(rs.next()){
                 int bookId = rs.getInt("BOOK_ID");

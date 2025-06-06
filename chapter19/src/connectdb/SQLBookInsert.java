@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -47,14 +48,17 @@ public class SQLBookInsert{
 
         // 4. Statement
         try {
-            Statement stmt = conn.createStatement();
+            // Statement stmt = conn.createStatement();
+            String insertSQL = "INSERT INTO books (book_id, title, publisher, year, price) VALUES (bookS_seq.nextval, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(insertSQL);
             // insert 쿼리문을 만들고 데이터를 가져온다.
             Books books = insertFunc();
-            String insertSQL = "INSERT INTO books (book_id, title, publisher, year, price) VALUES (bookS_seq.nextval, '" 
-                + books.getTitle() + "', '" + books.getPublisher() + "', '" + books.getYear() + "', " + books.getPrice() + ")";
-
+            pstmt.setString(1, books.getTitle());;
+            pstmt.setString(2, books.getPublisher());;
+            pstmt.setString(3, books.getYear());;
+            pstmt.setInt(4, books.getPrice());;
             // 5. DML 오라클에서 실행(executeQuery, executeUpdate) 후 (결과, 결과 count) 출력
-            int count = stmt.executeUpdate(insertSQL);
+            int count = pstmt.executeUpdate();
             if(count == 0){
                 System.out.println("insert 실패");
             }else{

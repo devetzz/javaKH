@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,7 +49,7 @@ public class SQLBookUpdate{
 
         // 4. Statement
         try {
-            Statement stmt = conn.createStatement();
+            // Statement stmt = conn.createStatement();
             // update 1. 수정할 리스트를 보여주고 수정할 조건을 입력
             System.out.println("몇번을 수정하시겠습니까? ");
             Scanner sc = new Scanner(System.in);
@@ -56,10 +57,13 @@ public class SQLBookUpdate{
 
 
             // 5. DML 오라클에서 실행(executeQuery, executeUpdate) 후 결과 출력
-            String selectSQL = "SELECT * FROM BOOKS WHERE BOOK_ID = " + _bookId;
-            ResultSet rs = stmt.executeQuery(selectSQL);
+            String selectSQL = "SELECT * FROM BOOKS WHERE BOOK_ID = ?";
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL);
+            pstmt.setInt(1, _bookId);
+
+            ResultSet rs = pstmt.executeQuery();
             // 6. Collection Framework
-            while(rs.next()){
+            if(rs.next()){
                 int bookId = rs.getInt("BOOK_ID");
                 String title = rs.getString("TITLE");
                 String publisher = rs.getString("PUBLISHER");
@@ -85,11 +89,16 @@ public class SQLBookUpdate{
             Books books = new Books(_bookId, title, publisher, year, price);
 
             // update 2. update 쿼리문
-            String updateSQL = "UPDATE BOOKS SET TITLE = '" + books.getTitle() + "', PUBLISHER = '" + books.getPublisher() 
-                + "', YEAR = '" + books.getYear() + "', PRICE = '" + books.getPrice() + "' WHERE BOOK_ID = " + _bookId;
-
+            String updateSQL = "UPDATE BOOKS SET TITLE = ?, PUBLISHER = ?, YEAR = ?, PRICE = ? WHERE BOOK_ID = ?";
+            pstmt = conn.prepareStatement(updateSQL);
+            pstmt.setString(1, books.getTitle());
+            pstmt.setString(2, books.getPublisher());
+            pstmt.setString(3, books.getYear());
+            pstmt.setInt(4, books.getPrice());
+            pstmt.setInt(5, books.getBookId());
+            
             // 5. DML 오라클에서 실행(executeQuery, executeUpdate) 후 (결과, 결과 count) 출력
-            int count = stmt.executeUpdate(updateSQL);
+            int count = pstmt.executeUpdate();
             if(count == 0){
                 System.out.println("update 실패");
             }else{
