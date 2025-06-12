@@ -14,6 +14,38 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.06.12 (56일차)
+
+Restful
+
+RestController 비동기방식 요청
+
+@RequestMapping(value)
+@RequestMapping의 HTTP 메서드별 바로가기
+ - @GetMapping : select
+ - @PostMapping	: insert
+ - @PutMapping : 전체 update
+ - @DeleteMapping : delete
+ - @PatchMapping : 일부 update
+
+view Resolver : 
+
+view resolver를 안탈려면 (java scritp에게 데이터를 직접 준다.)
+1. redirect를 통해 다시 페이지 요청
+2. ResponseEntity
+
+
+HTTP 에러 코드
+200 : 성공
+400 : Bad Request 요청의 구문이 잘못됨
+403 : Forbidden 지정한 리소스에 대해 액세스 금지
+404 : Not found 지정한 리소스를 찾을수 없음
+500 : 서버 에러 발생
+
+
+
+
+
 2025.06.11 (55일차)
 get : select 할때
 post : insert 할때
@@ -47,7 +79,6 @@ Model : map 이랑 같은 기능
 
 2025.06.09 (53일차)
 Spring boot
-
 
 https://mvnrepository.com/
 https://www.azul.com/
