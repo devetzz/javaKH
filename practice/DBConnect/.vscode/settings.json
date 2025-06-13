@@ -2,6 +2,7 @@
     "java.project.sourcePaths": [
         "dbhomework01\\src"
     ],
+    "java.project.outputPath": "dbhomework01\\bin",
     "java.project.referencedLibraries": [
         "dbhomework01\\lib\\ojdbc11.jar"
     ]
