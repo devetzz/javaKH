@@ -8,12 +8,12 @@ import model.ReservationVO;
 import model.ReviewVO;
 
 public interface ReservationFuncInterface {
-	public void movieFileUpload(ArrayList<MovieVO> mvList);
-	public void movieFileSave(ArrayList<MovieVO> mvList, Scanner s);
-	public void reservationFileUpload(ArrayList<ReservationVO> rsvList);
-	public void reservationFileSave(ArrayList<ReservationVO> rsvList, Scanner s);
-	public void reviewFileUpload(ArrayList<ReviewVO> rvList);
-	public void reviewFileSave(ArrayList<ReviewVO> rvList, Scanner s);
+	// public void movieFileUpload(ArrayList<MovieVO> mvList);
+	// public void movieFileSave(ArrayList<MovieVO> mvList, Scanner s);
+	// public void reservationFileUpload(ArrayList<ReservationVO> rsvList);
+	// public void reservationFileSave(ArrayList<ReservationVO> rsvList, Scanner s);
+	// public void reviewFileUpload(ArrayList<ReviewVO> rvList);
+	// public void reviewFileSave(ArrayList<ReviewVO> rvList, Scanner s);
 	
 	public int adminLogon(int no, Scanner s);
 	
@@ -28,7 +28,7 @@ public interface ReservationFuncInterface {
 	public void reservationMax(ArrayList<MovieVO> rsvList);
 	public void reservationMin(ArrayList<MovieVO> rsvList);
 
-	public void reservationAdd(ArrayList<ReservationVO> rsvList, ArrayList<MovieVO> mvList, Scanner s);
+	public void reservationAdd(ArrayList<ReservationVO> rsvList, Scanner s);
 	public void reservationCancle(ArrayList<ReservationVO> rsvList, Scanner s);
 	public void reservationCheck(ArrayList<ReservationVO> rsvList, Scanner s);
 	public void reservationModify(ArrayList<ReservationVO> rsvList, Scanner s);

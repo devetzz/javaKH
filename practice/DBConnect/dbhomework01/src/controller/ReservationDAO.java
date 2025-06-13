@@ -6,25 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.MovieVO;
+import model.ReservationVO;
 
-public class MovieDAO {
+public class ReservationDAO {
     // 디생
     // 멤버변수
-    private String selectSQL = "SELECT MOVIENUM, MOVIENAME, TO_CHAR(RELEASEDATE, 'YYYY-MM-DD') RELEASEDATE, RESERVATIONCOUNT FROM MOVIE";
-    private String insertSQL = "INSERT INTO MOVIE VALUES (MOVIE_SEQ.NEXTVAL, ?, ?, 0)";
-    private String updateSQL = "UPDATE MOVIE SET MOVIENAME = ?, RELEASEDATE = ? WHERE MOVIENUM = ?";
-    private String deleteSQL = "DELETE FROM MOVIE WHERE MOVIENUM = ?";
-	private String updateRsvCountSQL = "UPDATE MOVIE SET RESERVATIONCOUNT = ? WHERE MOVIENUM = ?";
+    private String selectSQL = "SELECT * FROM RESERVATION";
+    private String insertSQL = "INSERT INTO RESERVATION VALUES (?,?,?,?)";
+    private String updateSQL = "UPDATE RESERVATION SET PHONENUM = ?, USERNAME=?, MOVIENAME = ?, SEATNUM = ? WHERE PHONENUM = ?";
+    private String deleteSQL = "DELETE FROM RESERVATION WHERE PHONENUM = ?";
 
-
-
-    // 영화 목록 (select *)
-    public ArrayList<MovieVO> selectAll(){
+    // 예약 목록 (select *)
+    public ArrayList<ReservationVO> selectAll(){
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        ArrayList<MovieVO> mvList = new ArrayList<MovieVO>();
+        ArrayList<ReservationVO> rsvList = new ArrayList<ReservationVO>();
         
         try {
             con = DBUtil.getConnection();
@@ -36,12 +33,12 @@ public class MovieDAO {
             rs = pstmt.executeQuery();
 
             while(rs.next()){
-                int movieNum = rs.getInt("MOVIENUM");
+                String phoneNum = rs.getString("PHONENUM");
+                String userName = rs.getString("USERNAME");
                 String movieName = rs.getString("MOVIENAME");
-                String releaseDate = rs.getString("RELEASEDATE");
-                int reservationCount = rs.getInt("RESERVATIONCOUNT");
-                MovieVO movieVO = new MovieVO(movieNum, movieName, releaseDate, reservationCount);
-                mvList.add(movieVO);
+                int seatNum = rs.getInt("SEATNUM");
+                ReservationVO reservationVO = new ReservationVO(phoneNum, userName, movieName, seatNum);
+                rsvList.add(reservationVO);
             }
 
         } catch (SQLException e) {
@@ -49,11 +46,11 @@ public class MovieDAO {
         } finally {
             DBUtil.dbClose(con, pstmt, rs);
         }
-        return mvList;
+        return rsvList;
     }
 
-    // 영화 등록
-    public int insert(MovieVO movieVO) {
+    // 예약 등록
+    public int insert(ReservationVO reservationVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -64,8 +61,10 @@ public class MovieDAO {
 				return -1;
 			}
 			pstmt = con.prepareStatement(insertSQL);
-			pstmt.setString(1,movieVO.getMovieName());
-			pstmt.setString(2,movieVO.getReleaseDate());
+			pstmt.setString(1,reservationVO.getPhoneNum());
+			pstmt.setString(2,reservationVO.getUserName());
+			pstmt.setString(3,reservationVO.getMovieName());
+			pstmt.setInt(4,reservationVO.getSeatNum());
 			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("createStatement 오류발생");
@@ -74,8 +73,8 @@ public class MovieDAO {
 		}
 		return count;
 	}
-    // 영화 수정
-    public int update(MovieVO movieVO) {
+    // 예약 수정
+    public int update(ReservationVO reservationVO, String findNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -86,9 +85,11 @@ public class MovieDAO {
 				return -1;
 			}
 			pstmt = con.prepareStatement(updateSQL);
-			pstmt.setString(1, movieVO.getMovieName());
-			pstmt.setString(2, movieVO.getReleaseDate());
-			pstmt.setInt(3, movieVO.getMovieNum());
+			pstmt.setString(1, reservationVO.getPhoneNum());
+			pstmt.setString(2, reservationVO.getUserName());
+			pstmt.setString(3, reservationVO.getMovieName());
+			pstmt.setInt(4, reservationVO.getSeatNum());
+			pstmt.setString(5, findNum);
 			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("createStatement 오류발생");
@@ -97,8 +98,8 @@ public class MovieDAO {
 		}
 		return count;
 	}
-    // 영화 삭제
-    public int deleteByMovieNum(MovieVO movieVO) {
+    // 예약 삭제
+    public int deleteByPhoneNum(ReservationVO reservationVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -109,7 +110,7 @@ public class MovieDAO {
 				return -1;
 			}
 			pstmt = con.prepareStatement(deleteSQL);
-			pstmt.setInt(1, movieVO.getMovieNum());
+			pstmt.setString(1, reservationVO.getPhoneNum());
 			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("createStatement 오류발생");
@@ -118,29 +119,4 @@ public class MovieDAO {
 		}
 		return count;
 	}
-
-	// 영화 예약 카운트 수정
-    public int updateReservationCount(MovieVO movieVO, int rsvCount) {
-		// private String updateRsvCountSQL = "UPDATE MOVIE SET RESERVATIONCOUNT = ? WHERE MOVIENUM = ?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		int count = 0;
-		try {
-			con = DBUtil.getConnection();
-			if (con == null) {
-				System.out.println("DB 연결이 실패했습니다.");
-				return -1;
-			}
-			pstmt = con.prepareStatement(updateRsvCountSQL);
-			pstmt.setInt(1, rsvCount);
-			pstmt.setInt(2, movieVO.getMovieNum());
-			count = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("createStatement 오류발생");
-		} finally {
-			DBUtil.dbClose(con, pstmt);
-		}
-		return count;
-	}
-
 }

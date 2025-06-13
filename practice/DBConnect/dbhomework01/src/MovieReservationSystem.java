@@ -5,8 +5,11 @@ import java.util.regex.Pattern;
 
 import controller.DBUtil;
 import controller.FuncImplementation;
+import controller.MovieDAO;
 import controller.MovieManager;
 import controller.ReservationFuncInterface;
+import controller.ReservationManager;
+import controller.ReviewManager;
 import model.MovieVO;
 import model.ReservationVO;
 import model.ReviewVO;
@@ -15,7 +18,7 @@ import view.Menu;
 public class MovieReservationSystem {
     public static Scanner s = new Scanner(System.in);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         Connection con = DBUtil.getConnection();
         int choice = 0;
         boolean stopFlag = false;
@@ -39,6 +42,10 @@ public class MovieReservationSystem {
 			adminStop = false;
 			userStop = false;
 			Menu.userSelectMenuPrint();
+			MovieManager mm = new MovieManager();
+			ReservationManager rsvm = new ReservationManager();
+			ReviewManager rm = new ReviewManager();
+
 			int no = Integer.parseInt(PatternInspection(s, "사용자 선택 > ", "^[1-5]{1}$"));
 
 			func.adminLogon(no, s);
@@ -57,26 +64,26 @@ public class MovieReservationSystem {
                                         // 관리 메뉴
                                         clear();
                                         Menu.manageMenuPrint();
-                                        MovieManager mm = new MovieManager();
+                                        
                                         int manageNo = Integer.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[1,2,3,5]{1}$"));
                                         switch (manageNo) {
                                             case Menu.MOVIEADD:
                                                 // clear();
-                                                mm.register();
+                                                mm.register(s);
                                                 // func.movieAdd(mvList, s);
-                                                Thread.sleep(3000);
+                                                Thread.sleep(2000);
                                                 break;
                                             case Menu.MOVIEMODIFY:
                                                 // clear();
-                                                mm.update();
+                                                mm.update(s);
                                                 // func.movieModify(mvList, s);
-                                                Thread.sleep(3000);
+                                                Thread.sleep(2000);
                                                 break;
                                             case Menu.MOVIEREMOVE:
                                                 // clear();
-                                                mm.delete();
+                                                mm.delete(s);
                                                 // func.movieRemove(mvList, s);
-                                                Thread.sleep(3000);
+                                                Thread.sleep(2000);
                                                 break;
                                             case Menu.MANAGEEXIT:
                                                 // func.movieFileSave(mvList, s);
@@ -93,9 +100,9 @@ public class MovieReservationSystem {
 							case Menu.MOVIELIST:
                                 try {
                                     // clear();
-                                    MovieManager mm = new MovieManager();
+                                    // MovieManager mm = new MovieManager();
                                     // 개봉 영화 확인
-                                    mm.list();
+                                    mm.list(s);
                                     // func.movieList(mvList, s);
                                     break;
                                 } catch (Exception e){
@@ -106,25 +113,28 @@ public class MovieReservationSystem {
 									clear();
 									// 순위 메뉴
 									Menu.rankMenuPrint();
+									MovieDAO md = new MovieDAO();
+									ArrayList<MovieVO> mvrList = null; 
+									mvrList = md.selectAll();
 									int rankNo = Integer.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[1-5]{1}$"));
 
 									switch (rankNo) {
 										case Menu.ACS:
 											clear();
-											func.reservationAsc(mvList, s);
+											func.reservationAsc(mvrList, s);
 											break;
 										case Menu.DESC:
 											clear();
-											func.reservationDesc(mvList, s);
+											func.reservationDesc(mvrList, s);
 											break;
 										case Menu.MAX:
 											// clear();
-											func.reservationMax(mvList);
+											func.reservationMax(mvrList);
 											Thread.sleep(2000);
 											break;
 										case Menu.MIN:
 											// clear();
-											func.reservationMin(mvList);
+											func.reservationMin(mvrList);
 											Thread.sleep(2000);
 											break;
 										case Menu.RANKEXIT:
@@ -140,32 +150,36 @@ public class MovieReservationSystem {
 									// 예매 메뉴
 									clear();
 									Menu.reservationMenuPrint();
-									int reservationNo = Integer
-											.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[1-5]{1}$"));
+									
+									int reservationNo = Integer.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[1-5]{1}$"));
 
 									switch (reservationNo) {
 										case Menu.RESERVATIONADD:
 											clear();
-											func.reservationAdd(rsvList, mvList, s);
-											Thread.sleep(3000);
+											// func.reservationAdd(rsvList, s);
+											rsvm.register(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.RESERVATIONREMOVE:
 											clear();
-											func.reservationCancle(rsvList, s);
-											Thread.sleep(3000);
+											// func.reservationCancle(rsvList, s);
+											rsvm.delete(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.RESERVATIONPRINT:
-											func.reservationCheck(rsvList, s);
+											// func.reservationCheck(rsvList, s);
+											rsvm.list(s);
 											break;
 										case Menu.RESERVATIONMODIFY:
 											clear();
-											func.reservationModify(rsvList, s);
-											Thread.sleep(3000);
+											// func.reservationModify(rsvList, s);
+											rsvm.update(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.RESERVATIONEXIT:
 											func.movieReservationCountUpdate(rsvList, mvList, s);
-											func.reservationFileSave(rsvList, s);
-											func.movieFileSave(mvList, s);
+											// func.reservationFileSave(rsvList, s);
+											// func.movieFileSave(mvList, s);
 											break;
 									}// reservation switch
 									if (reservationNo == 5) {
@@ -178,19 +192,22 @@ public class MovieReservationSystem {
 									// 리뷰 메뉴
 									clear();
 									Menu.reviewMenuPrint();
+									
 									int reviewNo = Integer.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[1,2,5]{1}$"));
 
 									switch (reviewNo) {
 										case Menu.REVIEWADD:
 											clear();
-											func.reviewWrite(rvList, mvList, s);
-											Thread.sleep(3000);
+											// func.reviewWrite(rvList, mvList, s);
+											rm.register(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.REVIEWPRINT:
-											func.reviewPrint(rvList, s);
+											// func.reviewPrint(rvList, s);
+											rm.list(s);
 											break;
 										case Menu.REVIEWEXIT:
-											func.reviewFileSave(rvList, s);
+											// func.reviewFileSave(rvList, s);
 											break;
 									}// review switch
 									if (reviewNo == 5) {
@@ -201,7 +218,7 @@ public class MovieReservationSystem {
 							case Menu.EXIT:
 								adminStop = true;
 								System.out.println("(관리자)정상적으로 로그아웃 되었습니다.");
-								Thread.sleep(2000);
+								Thread.sleep(1500);
 								break;
 						}// 2nd admin switch
 					}// admin while
@@ -214,37 +231,43 @@ public class MovieReservationSystem {
 						// 사용자 메뉴
 						clear();
 						Menu.userMenuPrint();
+						// MovieManager _mm = new MovieManager();
 						int userNo = Integer.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[0,1,2,3,4,5]{1}$"));
 						switch (userNo) {
 							case Menu.MOVIELIST:
 								clear();
 								// 개봉 영화 확인
-								func.movieList(mvList, s);
+								// func.movieList(mvList, s);
+								mm.list(s);
 								break;
 							case Menu.MOVIERANK:
 								while (true) {
 									clear();
 									// 순위 메뉴
 									Menu.rankMenuPrint();
+									MovieDAO md = new MovieDAO();
+									ArrayList<MovieVO> mvrList = null; 
+									mvrList = md.selectAll();
+
 									int rankNo = Integer.parseInt(PatternInspection(s, "메뉴 입력 > ", "^[1-5]{1}$"));
 	
 									switch (rankNo) {
 										case Menu.ACS:
 											clear();
-											func.reservationAsc(mvList, s);
+											func.reservationAsc(mvrList, s);
 											break;
 										case Menu.DESC:
 											clear();
-											func.reservationDesc(mvList, s);
+											func.reservationDesc(mvrList, s);
 											break;
 										case Menu.MAX:
 											clear();
-											func.reservationMax(mvList);
+											func.reservationMax(mvrList);
 											Thread.sleep(2000);
 											break;
 										case Menu.MIN:
 											clear();
-											func.reservationMin(mvList);
+											func.reservationMin(mvrList);
 											Thread.sleep(2000);
 											break;
 										case Menu.RANKEXIT:
@@ -265,27 +288,31 @@ public class MovieReservationSystem {
 									switch (reservationNo) {
 										case Menu.RESERVATIONADD:
 											clear();
-											func.reservationAdd(rsvList, mvList, s);
-											Thread.sleep(3000);
+											// func.reservationAdd(rsvList, s);
+											rsvm.register(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.RESERVATIONREMOVE:
 											clear();
-											func.reservationCancle(rsvList, s);
-											Thread.sleep(3000);
+											// func.reservationCancle(rsvList, s);
+											rsvm.delete(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.RESERVATIONPRINT:
 											clear();
-											func.reservationCheck(rsvList, s);
+											// func.reservationCheck(rsvList, s);
+											rsvm.list(s);
 											break;
 										case Menu.RESERVATIONMODIFY:
 											clear();
-											func.reservationModify(rsvList, s);
-											Thread.sleep(3000);
+											// func.reservationModify(rsvList, s);
+											rsvm.update(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.RESERVATIONEXIT:
 											func.movieReservationCountUpdate(rsvList, mvList, s);
-											func.reservationFileSave(rsvList, s);
-											func.movieFileSave(mvList, s);
+											// func.reservationFileSave(rsvList, s);
+											// func.movieFileSave(mvList, s);
 											break;
 									}// reservation switch
 									if (reservationNo == 5) {
@@ -303,15 +330,17 @@ public class MovieReservationSystem {
 									switch (reviewNo) {
 										case Menu.REVIEWADD:
 											clear();
-											func.reviewWrite(rvList, mvList, s);
-											Thread.sleep(3000);
+											// func.reviewWrite(rvList, mvList, s);
+											rm.register(s);
+											Thread.sleep(2000);
 											break;
 										case Menu.REVIEWPRINT:
 											clear();
-											func.reviewPrint(rvList, s);
+											// func.reviewPrint(rvList, s);
+											rm.list(s);
 											break;
 										case Menu.REVIEWEXIT:
-											func.reviewFileSave(rvList, s);
+											// func.reviewFileSave(rvList, s);
 											break;
 									}// review switch
 									if (reviewNo == 5) {
@@ -322,7 +351,7 @@ public class MovieReservationSystem {
 							case Menu.EXIT:
 								userStop = true;
 								System.out.println("(사용자)정상적으로 로그아웃 되었습니다.");
-								Thread.sleep(2000);
+								Thread.sleep(1500);
 								break;
 						}// 2nd user switch
 					}// user while

@@ -6,25 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.MovieVO;
+import model.ReviewVO;
 
-public class MovieDAO {
+public class ReviewDAO {
     // 디생
     // 멤버변수
-    private String selectSQL = "SELECT MOVIENUM, MOVIENAME, TO_CHAR(RELEASEDATE, 'YYYY-MM-DD') RELEASEDATE, RESERVATIONCOUNT FROM MOVIE";
-    private String insertSQL = "INSERT INTO MOVIE VALUES (MOVIE_SEQ.NEXTVAL, ?, ?, 0)";
-    private String updateSQL = "UPDATE MOVIE SET MOVIENAME = ?, RELEASEDATE = ? WHERE MOVIENUM = ?";
-    private String deleteSQL = "DELETE FROM MOVIE WHERE MOVIENUM = ?";
-	private String updateRsvCountSQL = "UPDATE MOVIE SET RESERVATIONCOUNT = ? WHERE MOVIENUM = ?";
+    private String selectSQL = "SELECT * FROM REVIEW";
+    private String insertSQL = "INSERT INTO REVIEW VALUES (REVIEW_SEQ.NEXTVAL, ?, ?, ?)";
+    private String updateSQL = "UPDATE REVIEW SET MOVIENAME = ?, REVIEWRATE = ?, REVIEW_CONTENT = ? WHERE REVIEWNUM = ?";
+    private String deleteSQL = "DELETE FROM REVIEW WHERE REVIEWNUM = ?";
 
-
-
-    // 영화 목록 (select *)
-    public ArrayList<MovieVO> selectAll(){
+    // 리뷰 목록 (select *)
+    public ArrayList<ReviewVO> selectAll(){
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        ArrayList<MovieVO> mvList = new ArrayList<MovieVO>();
+        ArrayList<ReviewVO> rvList = new ArrayList<ReviewVO>();
         
         try {
             con = DBUtil.getConnection();
@@ -36,12 +33,12 @@ public class MovieDAO {
             rs = pstmt.executeQuery();
 
             while(rs.next()){
-                int movieNum = rs.getInt("MOVIENUM");
+				int reviewNum = rs.getInt("REVIEWNUM");
                 String movieName = rs.getString("MOVIENAME");
-                String releaseDate = rs.getString("RELEASEDATE");
-                int reservationCount = rs.getInt("RESERVATIONCOUNT");
-                MovieVO movieVO = new MovieVO(movieNum, movieName, releaseDate, reservationCount);
-                mvList.add(movieVO);
+                double reviewRate = rs.getDouble("REVIEWRATE");
+                String reviewContent = rs.getString("REVIEW_CONTENT");
+                ReviewVO reviewVO = new ReviewVO(reviewNum, movieName, reviewRate, reviewContent);
+                rvList.add(reviewVO);
             }
 
         } catch (SQLException e) {
@@ -49,11 +46,11 @@ public class MovieDAO {
         } finally {
             DBUtil.dbClose(con, pstmt, rs);
         }
-        return mvList;
+        return rvList;
     }
 
-    // 영화 등록
-    public int insert(MovieVO movieVO) {
+    // 리뷰 등록
+    public int insert(ReviewVO reviewVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -64,8 +61,9 @@ public class MovieDAO {
 				return -1;
 			}
 			pstmt = con.prepareStatement(insertSQL);
-			pstmt.setString(1,movieVO.getMovieName());
-			pstmt.setString(2,movieVO.getReleaseDate());
+			pstmt.setString(1,reviewVO.getMovieName());
+			pstmt.setDouble(2,reviewVO.getReviewRate());
+			pstmt.setString(3,reviewVO.getComment());
 			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("createStatement 오류발생");
@@ -74,8 +72,8 @@ public class MovieDAO {
 		}
 		return count;
 	}
-    // 영화 수정
-    public int update(MovieVO movieVO) {
+    // 리뷰 수정
+    public int update(ReviewVO reviewVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -86,9 +84,10 @@ public class MovieDAO {
 				return -1;
 			}
 			pstmt = con.prepareStatement(updateSQL);
-			pstmt.setString(1, movieVO.getMovieName());
-			pstmt.setString(2, movieVO.getReleaseDate());
-			pstmt.setInt(3, movieVO.getMovieNum());
+			pstmt.setString(1, reviewVO.getMovieName());
+			pstmt.setDouble(2, reviewVO.getReviewRate());
+			pstmt.setString(3, reviewVO.getComment());
+			pstmt.setInt(4, reviewVO.getReviewNum());
 			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("createStatement 오류발생");
@@ -97,8 +96,8 @@ public class MovieDAO {
 		}
 		return count;
 	}
-    // 영화 삭제
-    public int deleteByMovieNum(MovieVO movieVO) {
+    // 리뷰 삭제
+    public int deleteByReviewNum(ReviewVO reviewVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
@@ -109,7 +108,7 @@ public class MovieDAO {
 				return -1;
 			}
 			pstmt = con.prepareStatement(deleteSQL);
-			pstmt.setInt(1, movieVO.getMovieNum());
+			pstmt.setInt(1, reviewVO.getReviewNum());
 			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("createStatement 오류발생");
@@ -118,29 +117,4 @@ public class MovieDAO {
 		}
 		return count;
 	}
-
-	// 영화 예약 카운트 수정
-    public int updateReservationCount(MovieVO movieVO, int rsvCount) {
-		// private String updateRsvCountSQL = "UPDATE MOVIE SET RESERVATIONCOUNT = ? WHERE MOVIENUM = ?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		int count = 0;
-		try {
-			con = DBUtil.getConnection();
-			if (con == null) {
-				System.out.println("DB 연결이 실패했습니다.");
-				return -1;
-			}
-			pstmt = con.prepareStatement(updateRsvCountSQL);
-			pstmt.setInt(1, rsvCount);
-			pstmt.setInt(2, movieVO.getMovieNum());
-			count = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("createStatement 오류발생");
-		} finally {
-			DBUtil.dbClose(con, pstmt);
-		}
-		return count;
-	}
-
 }

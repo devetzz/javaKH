@@ -6,26 +6,33 @@ import java.util.Scanner;
 import model.MovieVO;
 
 public class MovieManager {
+	public static Scanner s = new Scanner(System.in);
     // 영화 리스트
-    public void list(){
+    public void list(Scanner s) throws Exception{
         MovieDAO md = new MovieDAO();
         System.out.println("영화 전체 리스트");
-        ArrayList<MovieVO> mvList = md.selectAll();
-        if(mvList.size() == 0) {
-			System.out.println("영화 전체 리스트 내용이 없습니다.");
-			return;
-		}else if(mvList == null) {
+        ArrayList<MovieVO> mvList = null; 
+		mvList = md.selectAll();
+		if(mvList == null) {
 			System.out.println("영화 전체 리스트 에러발생");
+			System.out.println("계속하려면 엔터를 입력하세요.");
+			s.nextLine();
+			return;
+		}else if(mvList.size() == 0) {
+			System.out.println("영화 전체 리스트 내용이 없습니다.");
+			System.out.println("계속하려면 엔터를 입력하세요.");
+			s.nextLine();
 			return;
 		}
 		for( MovieVO data : mvList) {
 			System.out.println(data.toString());
 		}
+		System.out.println("계속하려면 엔터를 입력하세요.");
+		s.nextLine();
     }
 
     // 영화 등록
-    public void register() throws Exception {
-		Scanner s = new Scanner(System.in);
+    public void register(Scanner s) throws Exception {
 
 		MovieDAO md = new MovieDAO();
 		MovieVO mvo = new MovieVO();
@@ -45,12 +52,11 @@ public class MovieManager {
 		md.insert(mvo); 
 
 		System.out.println();
-		list();
+		list(s);
 		System.out.println();
 	}
     // 영화 수정
-    public void update() throws Exception {
-		Scanner s = new Scanner(System.in);
+    public void update(Scanner s) throws Exception {
 
 		MovieDAO md = new MovieDAO();
 		MovieVO mvo = new MovieVO();
@@ -60,7 +66,7 @@ public class MovieManager {
 		String releaseDate; // 개봉일
 
 		System.out.println("영화 전체 리스트");
-		list(); 
+		list(s); 
 		System.out.println();
 
 		System.out.println("수정할 영화 번호 입력");
@@ -87,18 +93,17 @@ public class MovieManager {
 		}
 		
 		System.out.println();
-		list(); 
+		list(s); 
 		System.out.println();
 	}
     // 영화 삭제
-    public void delete() throws Exception {
-		Scanner s = new Scanner(System.in);
+    public void delete(Scanner s) throws Exception {
 
 		MovieDAO md = new MovieDAO();
 		MovieVO mvo = new MovieVO();
 
 		int movieNum; // 영화 번호
-		list();
+		list(s);
 		System.out.println();
 
 		System.out.println("삭제할 영화 번호 입력");
@@ -112,7 +117,7 @@ public class MovieManager {
 			System.out.printf("%s 번호 삭제성공\n",movieNum);
 		}
 		System.out.println();
-		list();
+		list(s);
 		System.out.println();
 	}
 }

@@ -61,9 +61,9 @@ public class MovieVO implements Comparable<MovieVO> {
 	@Override
 	public String toString() {
 		return formatAlign(movieNum, 10)
-               	+ formatAlign(movieName, 30)
-               	+ formatAlign(releaseDate, 15)
-               	+ formatAlign(reservationCount, 10);
+			+ formatAlign(movieName, 30)
+			+ formatAlign(releaseDate, 20)
+			+ formatAlign(reservationCount, 10);
 	}
 	
 	@Override
