@@ -14,6 +14,26 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.06.16 (58일차)
+
+business 모델?
+ - model을 쉽게 넣고빼고 할 수 있는 구조
+
+ 1. DAO를 만들어라					JDBCTemplate 자동주입(IoC)
+ 2. DAO의 인터페이스를 만들어라		BoardService interface
+ 3. 인터페이스 구현부를 만들어라	BoardServiceImpl
+    인터페이스 구현 객에 DAO 멤버변수를 갖고 DAO 객체를 자동 주입해라(역전주입 IOC)
+ 4. BoardController 컨트롤러에서 BoardService 인터페이스 멤버변수를 갖는다.
+    인터페이스 구현객체 (BoardServiceImpl) 를 자동 주입
+
+Spring MVC 모델
+
+@CrossOrigin
+교차출처 : 다른 출처의 리소스를 요청하는 것
+
+
+
+
 2025.06.13 (57일차)
 
 파라미터 : 이름만 같게 해라!
