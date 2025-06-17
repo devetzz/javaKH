@@ -14,6 +14,20 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.06.17 (59일차)
+
+과제 : 회원관리 (PK: ID, PW, 이름)
+Spring JDBC CRUD 구현
+
+SpringJDBCMember
+pom.xml
+ - JDBC API
+ - Lombok
+ - Oracle Driver
+ - Spring Boot DevTools
+ - Spring Web
+
+
 2025.06.16 (58일차)
 
 business 모델?
