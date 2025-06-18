@@ -14,6 +14,26 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.06.18 (60일차)
+
+1. 테이블 설계
+2. 환경 구성
+3. DB 종류 결정
+
+1. DAO
+2. interface / impl
+3. controller
+
+
+
+1. 데이터베이스 환경 설정(사용자,PW, DB, 테이블 설정, test:CRUD, join)
+2. 스프링부트 환경 설정 (이미 다 나와있다. spring jdbc)
+3. DAO 설계 한다.(의존성 주입) -> interface -> interface impl(의존성 주입) => controller (의존성 주입:다형성 구현)
+
+
+
+
+
 2025.06.17 (59일차)
 
 과제 : 회원관리 (PK: ID, PW, 이름)
