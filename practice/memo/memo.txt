@@ -14,6 +14,12 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.06.30 (68일차)
+
+<form:form modelAttribute="codeGroup" action="register">
+ => <form:form id="codeGroup" name="codeGroup" method="POST" action="register">
+
+
 2025.06.27 (67일차)
 security 이어서...
 2025.06.26 (66일차)
