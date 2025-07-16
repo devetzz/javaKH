@@ -15,6 +15,20 @@ PK , 유니크 차이 :
 
 Java
 2025.07.16 (79일차)
+modelMapper를 통해 객체와 객체DTO 간의 데이터 공유
+
+boxed() : 정수형(int) -> 정수형 객체(Integer)
+
+통신 요청 방식 2가지
+GET : URL Header
+POST : body
+
+비동기 방식 최신기술 : axios
+
+입력 : POST BODY 
+수정 : POST BODY
+삭제 : GET
+조회 : GET
 
 
 
