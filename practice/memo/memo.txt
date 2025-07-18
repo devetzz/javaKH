@@ -14,6 +14,98 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.07.18 (81일차)
+
+script를 아래에 넣는 이유
+
+
+리액트
+1. 사이트 테스트를 진행
+2. 구조 분석
+	2-1. 설치 방법(vite 방법)
+	2-2. 설치된 라이브러리(package.json 버전)
+	2-3. 환경설정(eslint.config.js) rules 설정 필요
+3. 코드분석
+	3-1. index.html -> 리액트 메인 페이지
+	3-2. main.jsx : index.html : <div id="root"></div> root 문서 객체를 찾는다. 
+		StrictMode 해제
+	3-3. App.jsx : 라우터 설정 진행 <RouterProvider router = {root} />
+	3-4. src/router/root.jsx (모든 경로 설정)
+		[주의] 화면 설계와 경로 설계가 모두 이루어진 상황에서 진행
+		const root = createBrowserRouter([
+			{
+				path: "/todo/add", element: (
+					<Suspense fallback={<Loading />}>
+						<AddPage />
+					</Suspense>
+				),
+			},
+		]); 제작
+	3-5. Loading 처리되는 컴포넌트
+	import Loading from '../pages/Loading';
+	3-6. 공통 컴포넌트 제작(부트스트랩 : 공통 컴포넌트)
+	src/include/~, src/component/common/~
+	Header, Footer, MenuAside, Button, Cart, ... 등
+	가장 신경 써야할 부분이 화면...?
+	
+	3-7. 페이지 제작 (TodoListㅣ: TodoAddPage, TodoListPage, TodoModifyPage, TodoReadPage, ...) src/page/todo/~
+	MainPage, AboutPage(사이트맵)
+	3-8. 페이지 제작 todo/modifyPage.jsx
+	//URL 통해서 전달되는 페이지 (1: param, 2: queryString)
+	// 이벤트 처리는 공통으로 관리
+	const { moveToList, moveToRead } = useCustomMove();
+	//3: 자식 컴포넌트 (probs: pk, 이벤트 처리)
+	<ModifyComponent tno={tno} moveToList={moveToList} moveToRead={moveToRead} />
+	
+	3-9. 공동 처리할 작업 (전체 관리)
+	 - 이벤트 처리 방식(/hooks/useCustomMove)
+	 - 외부 데이터 요청 방식(Axios 구조 비동기 처리 방식)
+	 	/api/TodoApi.jsx
+	 - 각 영역에 필요한 공통 컴포넌트 /component/todo/~
+	3-10. 각 화면 (부트스트랩)
+	3-11. 컴포넌트에서 외부 자료 가져올때 해야될 방식
+	 - useEffect 기능 활용
+	 useEffect(() => {
+        getOne(tno).then((data) => {
+            setTodo(data);
+            console.log(data);
+        });
+    }, [tno]);
+
+	3-12. 외부에서 가져온 데이터를 어떻게 처리할까? 하나의 객체로 오면 {todo.tno} ~~
+	객체 배열로 받는다면 (객체배열.map((data, index)=>{})) ( 객체배열.filter((data, index)=>{}))  ( 객체배열.foreach((data, index)=>{})), 삼항연산자 처리방식
+
+	3-13. 나머지는 모두 화면 설계
+
+
+
+
+
+스트링부트
+1. STS 선택, jdk, 등 세팅
+2. pom.xml 의존성 관련 라이브러리 추가
+ - modelmapper : jpa를 사용하게 되면 Todo 객체가 DB 테이블과 매핑되면서
+			데이터만 받아서 처리할 클래스가 필요. 해당 역할을 하는 것이 DTO(data transfer object)
+			DB에 직접 CRUD 할때는 (Todo), 자바 내에서 데이터 전달은 (TodoDTO)
+			
+3. 환경 설정
+	3-1. application.properties
+	3-2. config
+
+4. 각 컨트롤러 진행
+	4-1. JPA Domain 설계 -> JPA DTO 설계 -> JPA Repository 설계 -> Service, ServiceImpl 설계 -> Controller 설계
+
+
+5. 테스팅 방법
+ - JPA Domain, DTO, Repository 만들고나서 요청이 들어왔을 때 Controller 에서 진행하는 CRUD 테스트 결과를 확인
+ - 포스트맨
+
+
+
+2025.07.17 (80일차)
+mall 게시판 마무리
+
+
 2025.07.16 (79일차)
 modelMapper를 통해 객체와 객체DTO 간의 데이터 공유
 
