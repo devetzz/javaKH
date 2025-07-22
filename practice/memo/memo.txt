@@ -14,6 +14,28 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.07.22 (83일차)
+
+React
+api : 통신정보
+components : 페이지에 들어갈 컴포넌트
+hooks : 공통으로 중복사용되는 기능
+include : header, footer 등
+page : 각 페이지
+router : 경로 설정
+
+
+2025.07.21 (82일차)
+
+엔티티로는 Product라는 하나의 엔티티 객체지만 테이블에서는 2개의 테이블로 구성되기 때문에 JPA에서 이를 처리할 때 한 번에 모든 테이블을 같이 로딩해서 처리할 것인지(Eager loading:즉시로딩), 필요한 테이블만 먼저 조회할 것인지(Lazy loading : 지연로딩)를 결정해야 한다.
+
+@ElementCollection은 기본적으로 lazy loading 방식으로 동작하기 때문에 우선은 tbl_product 테이블만 접근해서 데이터를 처리하고 첨부파일이 필요할 때 product_image_list 테이블에 접근한다.
+데이터베이스에 두 번 접근해서 처리해야 하므로 테스트 코드는 @Transactional을 적용해야만 한다.
+
+@EntityGraph 는 연관된 데이터를 즉시 로딩하고 싶을 때 사용하는 어노테이션으로 imageList 필드를 함께 조인(fetch join) 해서 불러오도록 지시
+
+
+
 2025.07.18 (81일차)
 
 script를 아래에 넣는 이유
