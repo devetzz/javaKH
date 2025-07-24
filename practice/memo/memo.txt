@@ -14,6 +14,32 @@ PK , 유니크 차이 :
 =======================
 
 Java
+2025.07.24 (85일차)
+시큐리티는 세팅이다.(순차적으로 진행할 것)
+
+로그인 성공 = 시큐리티 인증, 인가 완료
+인증, 인가 정보와 함께 토큰을 보낸다
+토큰을 받으면 쿠키에 저장
+
+원래 스프링부트 시큐리티는 세션에 저장
+
+
+URL로 접근하자마자 토큰만 확인이 되면
+해당 User로 시큐리티 등록
+
+APIRefreshController
+조건 : access token, refresh token 두개다 받는다. access token : Header, refresh token : url 파라미터
+1. access token 시간이 만료가 안되었다 => 리액트(access token, refresh token) 되돌려준다.
+2. access token 이 만료되었다.
+	2-1. refresh token 이 한시간 미만일때 => refresh token 새로 생성, 그리고 new access token, new refresh token 돌려준다
+	2-2. refresh token 이 한시간 이상남았을때 => new access token, 기존 refresh token 돌려준다
+
+redux toolkit
+1. store : 금고
+2. reducer : 금고 관리자
+
+
+
 2025.07.23 (84일차)
 
 Security와 API 서버
